@@ -1,0 +1,1789 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Estatística Básica</title>
+<meta name="description" content="Aula completa dos Capítulos 1 a 3 da apostila de Estatística: população e amostra, variáveis, tabelas de frequência, classes e gráficos — com todos os exercícios resolvidos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --bg:#FAF6EE; --surface:#FFFDF9; --surface-2:#F3EDE1; --surface-3:#EDE5D6;
+  --ink:#221E18; --ink-2:#4F473D; --muted:#7D7365; --rule:#E4DACA; --rule-2:#D6CAB5;
+  --accent:#2350B0; --accent-2:#1B3F8C; --accent-soft:#E4EAF7;
+  --pink:#B3226E; --pink-hl:rgba(236,72,153,.26);
+  --cyan:#0B7085; --cyan-hl:rgba(20,184,214,.26);
+  --red:#BF3326; --red-soft:#FBE9E5;
+  --gold:#9A6A12; --gold-soft:#FBF1DB;
+  --green:#2E7A3A; --green-soft:#E5F1E5;
+  --grid:#ECE4D6; --axis:#CFC3AE; --neutral-mark:#C9BFAE;
+  --c1:#2a78d6; --c2:#eb6834; --c3:#1baf7a;
+  --c1t:#ffffff; --c2t:#1a1712; --c3t:#1a1712;
+  --o1:#0d366b; --o2:#1c5cab; --o3:#2a78d6; --o4:#5598e7; --o5:#86b6ef;
+  --o1t:#ffffff; --o2t:#ffffff; --o3t:#ffffff; --o4t:#1a1712; --o5t:#1a1712;
+  --wash:rgba(42,120,214,.10);
+  --shadow:0 1px 2px rgba(60,40,10,.06), 0 6px 20px -12px rgba(60,40,10,.18);
+  --f-display:"Fraunces", Georgia, "Times New Roman", serif;
+  --f-body:"Hanken Grotesk", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --measure:70ch; --top:56px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --bg:#15130F; --surface:#1E1B16; --surface-2:#27231C; --surface-3:#2F2A21;
+    --ink:#EFE8DA; --ink-2:#CFC6B6; --muted:#A0968A; --rule:#3A3429; --rule-2:#4A4235;
+    --accent:#8FB0FF; --accent-2:#B5CAFF; --accent-soft:#1F2A44;
+    --pink:#F28CC0; --pink-hl:rgba(236,72,153,.30);
+    --cyan:#63D2E6; --cyan-hl:rgba(20,184,214,.26);
+    --red:#FF8B7B; --red-soft:#3A1F1A;
+    --gold:#E8B85E; --gold-soft:#2F2615;
+    --green:#86D08F; --green-soft:#1A2A1C;
+    --grid:#2E2921; --axis:#4A4235; --neutral-mark:#5A5246;
+    --c1:#3987e5; --c2:#d95926; --c3:#199e70;
+    --c1t:#10141c; --c2t:#140d09; --c3t:#08140f;
+    --o1:#184f95; --o2:#256abf; --o3:#3987e5; --o4:#6da7ec; --o5:#9ec5f4;
+    --o1t:#ffffff; --o2t:#ffffff; --o3t:#10141c; --o4t:#10141c; --o5t:#10141c;
+    --wash:rgba(57,135,229,.14);
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --bg:#15130F; --surface:#1E1B16; --surface-2:#27231C; --surface-3:#2F2A21;
+  --ink:#EFE8DA; --ink-2:#CFC6B6; --muted:#A0968A; --rule:#3A3429; --rule-2:#4A4235;
+  --accent:#8FB0FF; --accent-2:#B5CAFF; --accent-soft:#1F2A44;
+  --pink:#F28CC0; --pink-hl:rgba(236,72,153,.30);
+  --cyan:#63D2E6; --cyan-hl:rgba(20,184,214,.26);
+  --red:#FF8B7B; --red-soft:#3A1F1A;
+  --gold:#E8B85E; --gold-soft:#2F2615;
+  --green:#86D08F; --green-soft:#1A2A1C;
+  --grid:#2E2921; --axis:#4A4235; --neutral-mark:#5A5246;
+  --c1:#3987e5; --c2:#d95926; --c3:#199e70;
+  --c1t:#10141c; --c2t:#140d09; --c3t:#08140f;
+  --o1:#184f95; --o2:#256abf; --o3:#3987e5; --o4:#6da7ec; --o5:#9ec5f4;
+  --o1t:#ffffff; --o2t:#ffffff; --o3t:#10141c; --o4t:#10141c; --o5t:#10141c;
+  --wash:rgba(57,135,229,.14);
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -14px rgba(0,0,0,.7);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--top) + 16px + env(safe-area-inset-top,0px))}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--accent-2)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+h1,h2,h3,h4{font-family:var(--f-display);font-weight:600;line-height:1.2;text-wrap:balance;margin:0;color:var(--ink);font-optical-sizing:auto}
+p{margin:0}
+strong{font-weight:700}
+code,.mono{font-family:var(--f-mono);font-size:.9em}
+sub{font-size:.7em}
+
+/* ---------- top bar ---------- */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:saturate(1.2) blur(8px);-webkit-backdrop-filter:saturate(1.2) blur(8px);border-bottom:1px solid var(--rule)}
+.topbar-in{height:var(--top);display:flex;align-items:center;gap:12px;max-width:1280px;margin:0 auto;padding-inline:16px}
+.brand{font-family:var(--f-display);font-weight:600;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0;flex:1}
+.brand small{font-family:var(--f-body);font-weight:500;color:var(--muted);font-size:13px;margin-left:8px}
+.tb-btn{appearance:none;border:1px solid var(--rule-2);background:var(--surface);color:var(--ink-2);font:600 13px/1 var(--f-body);padding:9px 12px;border-radius:999px;cursor:pointer;white-space:nowrap}
+.tb-btn:hover{border-color:var(--accent);color:var(--accent)}
+.tb-btn[aria-pressed="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.progress{position:absolute;left:0;bottom:-1px;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--accent),var(--cyan))}
+
+/* ---------- layout ---------- */
+.shell{max-width:1280px;margin:0 auto;padding-inline:16px;display:grid;grid-template-columns:minmax(0,1fr);gap:40px}
+@media (min-width:1080px){.shell{grid-template-columns:260px minmax(0,1fr);gap:56px}}
+.toc{display:none}
+@media (min-width:1080px){
+  .toc{display:block;position:sticky;top:calc(var(--top) + 24px + env(safe-area-inset-top,0px));align-self:start;max-height:calc(100vh - var(--top) - 48px);overflow:auto;padding-block:28px 24px;font-size:14px}
+}
+.toc h2{font-family:var(--f-body);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700;margin-bottom:10px}
+.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.toc a{display:grid;grid-template-columns:26px 1fr;gap:6px;align-items:baseline;padding:6px 10px;border-radius:8px;color:var(--ink-2);text-decoration:none;line-height:1.35}
+.toc a .n{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.toc a:hover{background:var(--surface-2);color:var(--ink)}
+.toc a.active{background:var(--accent-soft);color:var(--accent)}
+.toc a.active .n{color:var(--accent)}
+.toc .sub{padding-left:32px}
+.toc .sub a{grid-template-columns:1fr;font-size:13px;padding:4px 10px}
+.mtoc{margin-top:18px;border:1px solid var(--rule);border-radius:12px;background:var(--surface)}
+@media (min-width:1080px){.mtoc{display:none}}
+.mtoc summary{cursor:pointer;padding:12px 16px;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center}
+.mtoc summary::-webkit-details-marker{display:none}
+.mtoc summary::after{content:"+";font-family:var(--f-mono);color:var(--muted)}
+.mtoc[open] summary::after{content:"–"}
+.mtoc ol{margin:0;padding:0 16px 14px 36px;display:grid;gap:6px;font-size:15px}
+main{min-width:0;padding-block:8px 80px}
+.wrap{max-width:var(--measure)}
+
+/* ---------- hero ---------- */
+.hero{padding-block:44px 28px;border-bottom:1px solid var(--rule)}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 14px}
+.hero h1{font-size:clamp(34px,6vw,56px);letter-spacing:-.01em;margin-top:14px;font-weight:600}
+.hero h1 em{font-style:normal;background:linear-gradient(transparent 58%,var(--cyan-hl) 58%);padding-inline:2px}
+.lede{font-size:clamp(17px,2.2vw,19px);color:var(--ink-2);margin-top:16px;max-width:62ch}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.chip{font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid var(--rule-2);color:var(--ink-2);background:var(--surface)}
+
+/* ---------- sections ---------- */
+section.sec{padding-top:56px}
+.sec-head{display:flex;gap:14px;align-items:baseline;margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--ink)}
+.sec-head .num{font-family:var(--f-mono);font-size:13px;font-weight:600;color:var(--accent);background:var(--accent-soft);padding:3px 8px;border-radius:6px;flex:none}
+.sec-head h2{font-size:clamp(26px,3.6vw,36px)}
+.chap{margin-top:36px;padding:22px 22px 26px;background:var(--surface);border:1px solid var(--rule);border-radius:16px;box-shadow:var(--shadow)}
+@media (max-width:560px){.chap{padding:18px 16px 20px;border-radius:14px}}
+.chap-tag{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.chap > h3{font-size:clamp(22px,3vw,28px);margin-top:4px}
+h4.t{font-size:20px;margin-top:30px;margin-bottom:10px;display:flex;gap:10px;align-items:baseline}
+h4.t .k{font-family:var(--f-mono);font-size:12px;color:var(--muted);font-weight:500}
+h5.s{font:700 13px/1.3 var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+.prose{display:grid;gap:14px}
+.prose p, .prose li{max-width:var(--measure)}
+.prose ul,.prose ol{margin:0;padding-left:22px;display:grid;gap:6px}
+.lead-in{color:var(--ink-2)}
+.src{font-size:13px;color:var(--muted);font-style:italic}
+
+/* highlighter marks (as na sua apostila) */
+.hl-p{background:linear-gradient(transparent 55%,var(--pink-hl) 55%);padding-inline:1px}
+.hl-c{background:linear-gradient(transparent 55%,var(--cyan-hl) 55%);padding-inline:1px}
+.qual{color:var(--pink);font-weight:700}
+.quant{color:var(--cyan);font-weight:700}
+
+/* ---------- callouts ---------- */
+.box{border-radius:12px;padding:14px 16px 15px;border:1px solid var(--rule);background:var(--surface-2);display:grid;gap:8px}
+.box > .lbl{font:700 11.5px/1.2 var(--f-body);letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;gap:8px}
+.box > .lbl::before{content:"";width:8px;height:8px;border-radius:2px;background:currentColor;flex:none}
+.box.def{background:var(--accent-soft);border-color:color-mix(in srgb,var(--accent) 30%,transparent)}
+.box.def > .lbl{color:var(--accent)}
+.box.comp{background:transparent;border:1.5px dashed color-mix(in srgb,var(--cyan) 55%,transparent)}
+.box.comp > .lbl{color:var(--cyan)}
+.box.warn{background:var(--red-soft);border-color:color-mix(in srgb,var(--red) 35%,transparent)}
+.box.warn > .lbl{color:var(--red)}
+.box.exam{background:var(--gold-soft);border-color:color-mix(in srgb,var(--gold) 35%,transparent)}
+.box.exam > .lbl{color:var(--gold)}
+.box.sheet{background:var(--surface);border:1.5px solid color-mix(in srgb,var(--red) 55%,transparent);border-left-width:5px}
+.box.sheet > .lbl{color:var(--red)}
+.box.ok{background:var(--green-soft);border-color:color-mix(in srgb,var(--green) 35%,transparent)}
+.box.ok > .lbl{color:var(--green)}
+.box.note{background:var(--surface-2)}
+.box.note > .lbl{color:var(--muted)}
+.box p{max-width:none}
+.box ul{margin:0;padding-left:20px;display:grid;gap:4px}
+
+/* formula */
+.formula{font-family:var(--f-mono);font-size:clamp(15px,2.2vw,18px);background:var(--surface);border:1px solid var(--rule-2);border-radius:10px;padding:12px 16px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:center;justify-content:center;text-align:center}
+.frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;line-height:1.15;margin-inline:3px}
+.frac > span:first-child{border-bottom:1.5px solid currentColor;padding:0 4px 2px}
+.frac > span:last-child{padding:2px 4px 0}
+
+/* tables */
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--rule);border-radius:12px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:15px;font-variant-numeric:tabular-nums}
+caption{caption-side:top;text-align:left;font-weight:700;font-size:13px;letter-spacing:.04em;padding:10px 14px 4px;color:var(--ink-2)}
+th,td{padding:8px 14px;text-align:center;border-bottom:1px solid var(--rule);white-space:nowrap}
+th{font-weight:700;font-size:13px;color:var(--ink-2);background:var(--surface-2)}
+td:first-child,th:first-child{text-align:left}
+tr.total td{font-weight:700;border-top:2px solid var(--ink);border-bottom:0;background:var(--surface-2)}
+td.hl{background:var(--gold-soft);font-weight:700}
+td.new{color:var(--accent);font-weight:700}
+.tbl-note{font-size:13px;color:var(--muted);padding:8px 14px 10px}
+.data-strip{font-family:var(--f-mono);font-size:14px;line-height:1.9;background:var(--surface-2);border:1px solid var(--rule);border-radius:10px;padding:10px 14px;overflow-x:auto;white-space:normal;word-spacing:.35em}
+.data-strip b{color:var(--accent)}
+
+/* figures & charts */
+figure{margin:0;display:grid;gap:8px}
+figcaption{font-size:13px;color:var(--muted)}
+.fig{background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:12px 12px 8px;overflow-x:auto}
+svg.chart{display:block;width:100%;height:auto;min-width:420px;font-family:var(--f-body)}
+svg.chart.pie{min-width:380px;max-width:560px;margin-inline:auto}
+svg.chart.diagram{min-width:460px}
+.chart .grid{stroke:var(--grid);stroke-width:1}
+.chart .axis{stroke:var(--axis);stroke-width:1}
+.chart .tick{fill:var(--muted);font-size:12px;font-family:var(--f-mono)}
+.chart .axt{fill:var(--muted);font-size:12px}
+.chart .cat{fill:var(--ink-2);font-size:13px;font-weight:600}
+.chart .leg{fill:var(--ink-2);font-size:13px;font-weight:600}
+.chart .leg.muted{fill:var(--muted);font-weight:500;font-family:var(--f-mono);font-size:12px}
+.chart .plabel{fill:var(--ink-2);font-size:12px;font-family:var(--f-mono)}
+.chart .plabel.strong{font-weight:600;fill:var(--ink)}
+.chart .vlabel{fill:var(--ink);font-size:12px;font-family:var(--f-mono);font-weight:600}
+.chart .delta{fill:var(--muted);font-size:11.5px;font-family:var(--f-mono)}
+.chart .delta.hlt{fill:var(--c2);font-weight:700}
+.chart .note{fill:var(--muted);font-size:12px}
+.chart .dlabel{fill:var(--ink-2);font-size:12px;font-weight:700;letter-spacing:.06em}
+.chart .line{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.chart .line.s1{stroke:var(--c1)}
+.chart .line.hl{stroke:var(--c2);stroke-width:3.5}
+.chart .wash{fill:var(--wash)}
+.chart .dot{stroke:var(--surface);stroke-width:2}
+.chart .dot.s1,.chart .dot.c1{fill:var(--c1)}
+.chart .dot.c2{fill:var(--c2)}
+.chart .dot.c3{fill:var(--c3)}
+.chart .open{fill:var(--surface);stroke:var(--ink-2);stroke-width:2}
+.chart .bar.c1,.chart .slice.c1{fill:var(--c1)}
+.chart .bar.c2,.chart .slice.c2{fill:var(--c2)}
+.chart .bar.c3,.chart .slice.c3{fill:var(--c3)}
+.chart .bar.nmark{fill:var(--neutral-mark)}
+.chart .slice{stroke:var(--surface);stroke-width:2}
+.chart .slice.o1{fill:var(--o1)} .chart .slice.o2{fill:var(--o2)} .chart .slice.o3{fill:var(--o3)} .chart .slice.o4{fill:var(--o4)} .chart .slice.o5{fill:var(--o5)}
+.chart .inlabel{font-size:14px;font-weight:700;font-family:var(--f-mono)}
+.chart .t1{fill:var(--o1t)} .chart .t2{fill:var(--o2t)} .chart .t3{fill:var(--o3t)} .chart .t4{fill:var(--o4t)} .chart .t5{fill:var(--o5t)}
+.chart .c1t{fill:var(--c1t)} .chart .c2t{fill:var(--c2t)} .chart .c3t{fill:var(--c3t)}
+.chart .ref{stroke:var(--red);stroke-width:1.5;stroke-dasharray:5 4}
+.chart .reflabel{fill:var(--red);font-size:12px;font-weight:700}
+
+/* exercises */
+.ex{border:1px solid var(--rule-2);border-radius:14px;background:var(--surface);overflow:hidden}
+.ex-head{padding:14px 16px 12px;display:grid;gap:10px;border-bottom:1px solid var(--rule)}
+.ex-id{font-family:var(--f-mono);font-size:12px;font-weight:600;color:var(--accent);letter-spacing:.04em}
+.ex-q{display:grid;gap:8px}
+.ex details{border:0}
+.ex summary{cursor:pointer;list-style:none;padding:11px 16px;font-weight:700;font-size:14px;color:var(--accent);display:flex;align-items:center;gap:8px;background:var(--surface-2)}
+.ex summary::-webkit-details-marker{display:none}
+.ex summary::before{content:"▸";font-size:12px;transition:transform .15s}
+.ex details[open] summary::before{transform:rotate(90deg)}
+.ex .sol{padding:14px 16px 18px;display:grid;gap:12px}
+.step{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start}
+.step > i{font-style:normal;font-family:var(--f-mono);font-size:12px;font-weight:600;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--accent-soft);color:var(--accent);margin-top:2px}
+.ans{font-weight:700;background:var(--green-soft);color:var(--ink);border-radius:8px;padding:8px 12px;border:1px solid color-mix(in srgb,var(--green) 35%,transparent)}
+.ans::before{content:"Resposta  ";font:700 11px/1 var(--f-body);letter-spacing:.12em;text-transform:uppercase;color:var(--green)}
+
+/* grids */
+.sol,.prose,.box,.ex-q,.ex-head,figure,.card,.qz,.vgroup,.quiz,.g2,.g3,.vs,.vids{grid-template-columns:minmax(0,1fr)}
+.step > *,.sol > *,.prose > *,.box > *,.card > *,figure > *{min-width:0}
+.g2{display:grid;gap:14px}
+@media (min-width:720px){.g2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.g3{display:grid;gap:14px}
+@media (min-width:760px){.g3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.card{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;display:grid;gap:6px;align-content:start}
+.card h5{font:700 15px/1.3 var(--f-body);margin:0}
+.card p{font-size:15px;color:var(--ink-2)}
+
+/* pipeline */
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+.flow .node{flex:1 1 130px;background:var(--surface);border:1px solid var(--rule-2);border-radius:12px;padding:10px 12px;display:grid;gap:2px;position:relative}
+.flow .node b{font-size:14.5px}
+.flow .node span{font-size:12.5px;color:var(--muted);line-height:1.35}
+.flow .arrow{align-self:center;font-family:var(--f-mono);color:var(--accent);font-weight:700}
+@media (max-width:640px){.flow{flex-direction:column}.flow .arrow{transform:rotate(90deg);align-self:center;line-height:1}}
+
+/* tree */
+.tree{font-size:15px}
+.tree ul{list-style:none;margin:0;padding-left:22px;position:relative}
+.tree > ul{padding-left:0}
+.tree li{position:relative;padding:6px 0 6px 18px}
+.tree ul ul li::before{content:"";position:absolute;left:0;top:0;bottom:0;border-left:1.5px solid var(--rule-2)}
+.tree ul ul li:last-child::before{bottom:auto;height:20px}
+.tree ul ul li::after{content:"";position:absolute;left:0;top:20px;width:12px;border-top:1.5px solid var(--rule-2)}
+.tree .tn{display:inline-block;font-weight:700;padding:2px 10px;border-radius:8px;border:1px solid var(--rule-2);background:var(--surface)}
+.tree .tn.q1{border-color:color-mix(in srgb,var(--pink) 50%,transparent);color:var(--pink)}
+.tree .tn.q2{border-color:color-mix(in srgb,var(--cyan) 50%,transparent);color:var(--cyan)}
+.tree .ex-t{display:block;font-size:13.5px;color:var(--muted);margin-top:2px}
+pre.ascii{font-family:var(--f-mono);font-size:13.5px;line-height:1.55;background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;overflow-x:auto;margin:0;color:var(--ink-2)}
+
+/* compare table */
+.vs{display:grid;gap:10px}
+@media (min-width:720px){.vs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.vs .side{border-radius:12px;padding:14px 16px;border:1px solid var(--rule);background:var(--surface);display:grid;gap:6px;align-content:start}
+.vs .side.p{border-top:4px solid var(--pink)}
+.vs .side.c{border-top:4px solid var(--cyan)}
+.vs .side h5{margin:0;font:700 16px/1.3 var(--f-display)}
+
+/* videos */
+.vgroup{display:grid;gap:12px;margin-top:22px}
+.vgroup > h3{font-size:20px}
+.vids{display:grid;gap:12px}
+@media (min-width:760px){.vids{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.vid{display:grid;grid-template-columns:44px minmax(0,1fr);gap:12px;align-items:start;text-decoration:none;color:var(--ink);background:var(--surface);border:1px solid var(--rule);border-radius:14px;padding:14px;transition:border-color .15s, transform .15s}
+.vid:hover{border-color:var(--accent);color:var(--ink);transform:translateY(-1px)}
+.vid .play{width:44px;height:44px;border-radius:12px;background:var(--red);display:grid;place-items:center}
+.vid .play svg{width:18px;height:18px;fill:#fff}
+.vid .vt{font-weight:700;font-size:15px;line-height:1.35}
+.vid .vc{font-size:13px;color:var(--muted);margin-top:2px}
+.vid .vw{font-size:13.5px;color:var(--ink-2);margin-top:6px}
+.vid .go{display:inline-block;margin-top:8px;font:700 12.5px/1 var(--f-body);color:var(--accent)}
+
+/* quiz */
+.quiz{display:grid;gap:12px}
+.qz{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:14px 16px;display:grid;gap:10px}
+.qz p{font-weight:600}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{appearance:none;font:600 14px/1.2 var(--f-body);padding:9px 14px;border-radius:10px;border:1px solid var(--rule-2);background:var(--surface-2);color:var(--ink);cursor:pointer}
+.opt:hover{border-color:var(--accent)}
+.opt.right{background:var(--green-soft);border-color:var(--green);color:var(--green)}
+.opt.wrong{background:var(--red-soft);border-color:var(--red);color:var(--red)}
+.fb{font-size:14.5px;color:var(--ink-2)}
+.score{font-family:var(--f-mono);font-size:14px;color:var(--muted)}
+
+/* checklist */
+.check{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.check li{display:grid;grid-template-columns:22px minmax(0,1fr);gap:10px;align-items:start}
+.check li::before{content:"";width:16px;height:16px;border:1.5px solid var(--accent);border-radius:4px;margin-top:5px}
+
+footer.foot{margin-top:64px;padding-top:18px;border-top:1px solid var(--rule);font-size:13px;color:var(--muted);display:grid;gap:6px}
+
+/* print */
+@media print{
+  :root{--bg:#fff;--surface:#fff;--surface-2:#f6f6f6;--ink:#000;--ink-2:#222;--muted:#555;--rule:#ccc}
+  body{font-size:11pt}
+  .topbar,.toc,.mtoc,.tb-btn,.quiz .opts{display:none!important}
+  .shell{display:block}
+  .chap,.ex,.box,.fig,.card,.vid,figure,table{break-inside:avoid}
+  .ex details > *{display:block}
+  a{color:#000}
+  .vid::after{content:" — " attr(href);font-size:9pt;color:#444}
+  section.sec{padding-top:24px}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar" id="topo">
+  <div class="topbar-in">
+    <div class="brand">Estatística <small>Cap. 1 a 3 · 2ª série</small></div>
+    <button class="tb-btn" id="btnTreino" type="button" aria-pressed="false" title="Fecha todas as resoluções para você tentar sozinho">Modo treino</button>
+    <button class="tb-btn" id="btnTema" type="button" aria-label="Alternar tema claro/escuro">Tema</button>
+  </div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
+</header>
+
+<div class="shell">
+  <nav class="toc" aria-label="Sumário">
+    <h2>Sumário da aula</h2>
+    <ol>
+      <li><a href="#titulo"><span class="n">01</span><span>Título do assunto</span></a></li>
+      <li><a href="#visao"><span class="n">02</span><span>Visão geral do tema</span></a></li>
+      <li><a href="#explicacao"><span class="n">03</span><span>Explicação completa</span></a></li>
+      <li class="sub"><a href="#cap1">Cap. 1 · Introdução</a></li>
+      <li class="sub"><a href="#cap2">Cap. 2 · Tabelas de frequência</a></li>
+      <li class="sub"><a href="#cap2b">Cap. 2 · Dados em classes</a></li>
+      <li class="sub"><a href="#cap3">Cap. 3 · Gráficos</a></li>
+      <li><a href="#exemplos"><span class="n">04</span><span>Exemplos e analogias</span></a></li>
+      <li><a href="#esquemas"><span class="n">05</span><span>Esquemas e desenhos</span></a></li>
+      <li><a href="#pegadinhas"><span class="n">06</span><span>Pontos de atenção e pegadinhas</span></a></li>
+      <li><a href="#prova"><span class="n">07</span><span>O que mais cai em prova</span></a></li>
+      <li><a href="#videos"><span class="n">08</span><span>Vídeos no YouTube</span></a></li>
+      <li><a href="#revisao"><span class="n">09</span><span>Revisão final</span></a></li>
+    </ol>
+  </nav>
+
+  <main id="conteudo">
+    <!-- 01 TÍTULO -->
+    <section class="hero" id="titulo">
+      <div class="eyebrow"><span>01 · Título do assunto</span><span>Matemática · Estatística</span><span>Apostila págs. 1–9</span></div>
+      <h1>Estatística: população, variáveis, <em>tabelas de frequência</em> e gráficos</h1>
+      <p class="lede">Uma aula do zero ao nível de vestibular sobre os Capítulos 1, 2 e 3 da sua apostila: o que a Estatística estuda, como organizar dados brutos em tabelas (inclusive em classes) e como ler e calcular com gráficos de linhas, setores, barras e colunas. Todos os exercícios das fotos estão resolvidos passo a passo.</p>
+      <div class="chips">
+        <span class="chip">Cap. 1 · Introdução à estatística</span>
+        <span class="chip">Cap. 2 · Tabela de frequências</span>
+        <span class="chip">Cap. 3 · Gráficos</span>
+        <span class="chip">12 exercícios resolvidos</span>
+      </div>
+      <details class="mtoc">
+        <summary>Sumário da aula</summary>
+        <ol>
+          <li><a href="#visao">Visão geral do tema</a></li>
+          <li><a href="#explicacao">Explicação completa</a> — <a href="#cap1">Cap. 1</a> · <a href="#cap2">Cap. 2</a> · <a href="#cap2b">Classes</a> · <a href="#cap3">Cap. 3</a></li>
+          <li><a href="#exemplos">Exemplos e analogias</a></li>
+          <li><a href="#esquemas">Esquemas e desenhos</a></li>
+          <li><a href="#pegadinhas">Pontos de atenção e pegadinhas</a></li>
+          <li><a href="#prova">O que mais cai em prova</a></li>
+          <li><a href="#videos">Vídeos no YouTube</a></li>
+          <li><a href="#revisao">Revisão final</a></li>
+        </ol>
+      </details>
+    </section>
+
+    <!-- 02 VISÃO GERAL -->
+    <section class="sec" id="visao">
+      <div class="sec-head"><span class="num">02</span><h2>Visão geral do tema</h2></div>
+      <div class="prose">
+        <p>A apostila abre com uma frase que resume a matéria inteira: <strong>Estatística é a ciência que nos permite analisar determinada propriedade ou característica de uma população e, consequentemente, tirar conclusões ou fazer previsões, sem que seja necessário verificar todos os elementos dessa população.</strong></p>
+        <p>Repare no final da frase: <em>sem verificar todos</em>. É isso que torna a Estatística útil. Ninguém entrevista os 200 milhões de brasileiros para prever uma eleição; entrevista-se uma parte bem escolhida e, a partir dela, conclui-se algo sobre o todo. Os três capítulos seguem exatamente o caminho que um dado percorre:</p>
+      </div>
+
+      <div class="flow" style="margin-top:18px" aria-label="Caminho do dado">
+        <div class="node"><b>Pesquisa</b><span>define população, amostra e variável (Cap. 1)</span></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="node"><b>Dados brutos</b><span>lista na ordem em que foi coletada</span></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="node"><b>Rol</b><span>os mesmos dados, em ordem</span></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="node"><b>Tabela de frequências</b><span>f, f<sub>r</sub> e % — valor a valor ou em classes (Cap. 2)</span></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="node"><b>Gráfico</b><span>linhas, setores, barras, colunas (Cap. 3)</span></div>
+        <div class="arrow" aria-hidden="true">→</div>
+        <div class="node"><b>Conclusão</b><span>“75% ganham menos de R$ 860”</span></div>
+      </div>
+
+      <div class="g3" style="margin-top:22px">
+        <div class="card"><h5>Capítulo 1 — Introdução</h5><p>População, amostra e variável. Variáveis qualitativas × quantitativas; quantitativas discretas × contínuas.</p></div>
+        <div class="card"><h5>Capítulo 2 — Tabela de frequências</h5><p>Dados brutos, rol, amplitude, frequência absoluta (f) e relativa (f<sub>r</sub>), dados agrupados em classes e ponto médio.</p></div>
+        <div class="card"><h5>Capítulo 3 — Gráficos</h5><p>Gráfico de linhas, de setores (“pizza”), de barras e de colunas, com cálculo de porcentagens e ângulos centrais.</p></div>
+      </div>
+
+      <div class="box note" style="margin-top:22px">
+        <div class="lbl">Sobre o material enviado</div>
+        <ul>
+          <li>As 9 fotos correspondem às <strong>páginas 1 a 9</strong> da apostila (cada foto veio duas vezes; organizei tudo sem repetir).</li>
+          <li>O gabarito da página 7 cobre só a <strong>Tarefa Complementar</strong> (T1, T2, T3). Os Exercícios de Fixação (EF) não têm gabarito nas fotos — resolvi todos e conferi as contas.</li>
+          <li>Duas leituras da foto têm alguma incerteza e estão sinalizadas onde aparecem: um valor do gráfico de barras (jornal Papel, 2006) e a legenda do gráfico de setores do SPC, ilegível na foto.</li>
+          <li>A página 9 termina no gráfico de colunas; se a apostila continuar (por exemplo, com histograma), mande as próximas páginas.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 03 EXPLICAÇÃO -->
+    <section class="sec" id="explicacao">
+      <div class="sec-head"><span class="num">03</span><h2>Explicação completa, tópico por tópico</h2></div>
+      <p class="lead-in wrap">Cada capítulo traz a teoria da apostila explicada passo a passo e, logo depois, os exercícios das fotos resolvidos. Use o botão <strong>Modo treino</strong> (no topo) para esconder as resoluções e tentar sozinho antes.</p>
+
+      <!-- ================= CAPÍTULO 1 ================= -->
+      <article class="chap" id="cap1">
+        <div class="chap-tag">Capítulo 1 · págs. 1–2</div>
+        <h3>Introdução à estatística</h3>
+
+        <h4 class="t"><span class="k">1.1</span>As três palavras que organizam qualquer pesquisa</h4>
+        <div class="prose">
+          <p>Antes de qualquer conta, toda pesquisa responde a três perguntas: <strong>sobre quem</strong> eu quero concluir algo? <strong>Quem</strong> eu vou, de fato, pesquisar? <strong>O que</strong> eu vou observar em cada um? As respostas são, nessa ordem, a população, a amostra e a variável.</p>
+        </div>
+
+        <div class="g3" style="margin-top:14px">
+          <div class="box def">
+            <div class="lbl">População estatística</div>
+            <p>É o <span class="hl-p">conjunto de todos os elementos</span> sobre o qual se deseja analisar determinada característica.</p>
+            <p class="src">Em outras palavras: todo mundo sobre quem a conclusão vai falar.</p>
+          </div>
+          <div class="box def">
+            <div class="lbl">Amostra estatística</div>
+            <p>É um <span class="hl-p">subconjunto da população</span>: a parte que, efetivamente, será estudada e que deverá <span class="hl-c">representá-la</span>, ou seja, não poderá ser tendenciosa. Os elementos da amostra devem ser aleatórios.</p>
+            <p class="src">Em outras palavras: quem você realmente pesquisa.</p>
+          </div>
+          <div class="box def">
+            <div class="lbl">Variável estatística</div>
+            <p>É a <span class="hl-c">propriedade</span> ou <span class="hl-c">característica</span> dessa população que <span class="hl-c">será estudada</span>.</p>
+            <p class="src">Em outras palavras: o que você pergunta ou mede em cada elemento.</p>
+          </div>
+        </div>
+
+        <figure style="margin-top:18px">
+          <div class="fig">
+            <svg class="chart diagram" viewBox="0 0 640 214" role="img" aria-labelledby="pa-t">
+              <title id="pa-t">A amostra é uma parte da população</title>
+              <rect x="8" y="10" width="624" height="176" rx="18" fill="var(--surface-2)" stroke="var(--rule-2)" stroke-width="1.5"/>
+              <text class="dlabel" x="28" y="36">POPULAÇÃO — todos os elementos</text>
+              <g fill="var(--neutral-mark)">
+                <circle cx="60" cy="80" r="6"/><circle cx="100" cy="120" r="6"/><circle cx="150" cy="70" r="6"/><circle cx="90" cy="160" r="6"/><circle cx="200" cy="140" r="6"/><circle cx="215" cy="78" r="6"/><circle cx="480" cy="70" r="6"/><circle cx="520" cy="150" r="6"/><circle cx="560" cy="90" r="6"/><circle cx="600" cy="130" r="6"/><circle cx="490" cy="168" r="6"/><circle cx="170" cy="170" r="6"/><circle cx="590" cy="170" r="6"/><circle cx="60" cy="130" r="6"/>
+              </g>
+              <ellipse cx="350" cy="112" rx="112" ry="62" fill="var(--accent-soft)" stroke="var(--accent)" stroke-width="1.5"/>
+              <text class="dlabel" x="350" y="74" text-anchor="middle" style="fill:var(--accent)">AMOSTRA</text>
+              <g class="chart">
+                <circle cx="300" cy="104" r="6" fill="var(--c1)"/><circle cx="340" cy="132" r="6" fill="var(--c1)"/><circle cx="385" cy="100" r="6" fill="var(--c1)"/><circle cx="410" cy="138" r="6" fill="var(--c1)"/><circle cx="275" cy="140" r="6" fill="var(--c1)"/><circle cx="355" cy="160" r="6" fill="var(--c1)"/>
+              </g>
+              <text class="note" x="320" y="207" text-anchor="middle">amostra: sorteada ao acaso, com todos os grupos representados</text>
+            </svg>
+          </div>
+          <figcaption>A amostra é um subconjunto da população: estuda-se a parte para concluir sobre o todo.</figcaption>
+        </figure>
+
+        <h5 class="s">O exemplo da apostila</h5>
+        <div class="tbl-wrap">
+          <table>
+            <caption>Pesquisa: preferência nacional dos adolescentes em esportes</caption>
+            <tbody>
+              <tr><td><strong>População</strong></td><td style="text-align:left;white-space:normal">Todos os adolescentes do Brasil.</td></tr>
+              <tr><td><strong>Amostra</strong></td><td style="text-align:left;white-space:normal">Adolescentes escolhidos das cinco regiões do Brasil, da capital e do interior, das várias etnias e religiões, em igual número para cada critério — ou seja, uma amostra não tendenciosa.</td></tr>
+              <tr><td><strong>Variável</strong></td><td style="text-align:left;white-space:normal">Modalidade de esporte preferida: futebol, voleibol, natação, handebol, outras ou nenhuma.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="prose" style="margin-top:16px">
+          <p><strong>Por que a amostra não pode ser tendenciosa?</strong> Porque a conclusão vale para a população inteira. Se você perguntasse o esporte preferido só para adolescentes na saída de um jogo de futebol, o futebol “ganharia” com folga — não porque os adolescentes do Brasil preferem futebol, mas porque você escolheu mal quem entrevistar. Isso é uma amostra <strong>tendenciosa</strong> (viciada): ela puxa o resultado para um lado.</p>
+          <p><strong>Por que aleatória?</strong> Sortear os elementos impede que a escolha do pesquisador (mesmo sem querer) favoreça um grupo. É o sorteio que dá a cada elemento a mesma chance de entrar.</p>
+        </div>
+
+        <div class="box comp" style="margin-top:14px">
+          <div class="lbl">Complemento para melhor compreensão</div>
+          <ul>
+            <li><strong>Censo × amostragem.</strong> Quando se pesquisa <em>toda</em> a população, faz-se um <strong>censo</strong> (como o Censo Demográfico do IBGE). Quando se pesquisa só uma parte, faz-se uma <strong>amostragem</strong>. A amostragem existe porque o censo costuma ser caro, demorado e, às vezes, impossível — por exemplo, testar a resistência de todas as lâmpadas de uma fábrica destruiria o estoque inteiro.</li>
+            <li><strong>“Igual número para cada critério”.</strong> A apostila simplifica. Na prática, institutos de pesquisa costumam montar a amostra <em>proporcional</em> ao tamanho de cada grupo (se uma região tem 40% dos adolescentes, ela entra com cerca de 40% da amostra). A ideia central é a mesma da apostila: todos os grupos precisam estar representados.</li>
+          </ul>
+        </div>
+
+        <h4 class="t"><span class="k">1.2</span>Variáveis qualitativas e quantitativas</h4>
+        <div class="prose">
+          <p>No exemplo dos esportes, as respostas são <em>nomes</em> (futebol, vôlei…), não números. Esse é o critério da apostila:</p>
+        </div>
+        <div class="vs" style="margin-top:12px">
+          <div class="side p">
+            <h5><span class="qual">Qualitativa</span></h5>
+            <p>Os valores <strong>não são numéricos</strong>: são categorias, atributos, qualidades.</p>
+            <p class="src">Exemplos da apostila: sexo, etnia, estado civil, esporte preferido.</p>
+          </div>
+          <div class="side c">
+            <h5><span class="quant">Quantitativa</span></h5>
+            <p>Os valores <strong>são numéricos</strong>: resultam de contar ou de medir.</p>
+            <p class="src">Exemplos da apostila: idade, altura, salário.</p>
+          </div>
+        </div>
+        <div class="prose" style="margin-top:14px">
+          <p><strong>Teste rápido para classificar:</strong> pergunte “faz sentido calcular a média disso?”. Média de alturas faz sentido (1,62 m). Média de estados civis não existe — não há “casado e meio”. Se a média faz sentido, a variável é quantitativa.</p>
+        </div>
+        <div class="box comp" style="margin-top:12px">
+          <div class="lbl">Complemento para melhor compreensão</div>
+          <ul>
+            <li><strong>Número nem sempre é quantidade.</strong> CEP, número da camisa de um jogador, número de telefone e RG são escritos com algarismos, mas são <em>rótulos</em>, não medidas — são variáveis <span class="qual">qualitativas</span>. (Somar dois CEPs não tem significado.)</li>
+            <li><strong>Nominal × ordinal.</strong> Uma qualitativa pode ter ordem natural (<em>ordinal</em>): nível de escolaridade (fundamental → médio → superior), como no ER1 do Capítulo 2. Sem ordem natural, ela é <em>nominal</em>: estado civil, cor dos olhos, esporte preferido.</li>
+          </ul>
+        </div>
+
+        <h4 class="t"><span class="k">1.3</span>Quantitativas: contínuas e discretas</h4>
+        <div class="g2" style="margin-top:6px">
+          <div class="box def">
+            <div class="lbl">Variável contínua</div>
+            <p>Pode assumir <span class="hl-p">qualquer valor em um intervalo contínuo</span>.</p>
+            <p class="src">Exemplos da apostila: altura de um grupo de pessoas; salário dos funcionários de uma empresa; quantidade de horas por dia na internet; idade de um grupo de pessoas, quando se consideram anos, meses, dias…</p>
+          </div>
+          <div class="box def">
+            <div class="lbl">Variável discreta</div>
+            <p>Só pode assumir <span class="hl-c">valores inteiros</span> (os números de ℤ, como você anotou na folha: “ℤ → inteiros”).</p>
+            <p class="src">Exemplos da apostila: número de alunos por sala; número de ações negociadas na Bolsa de Valores; idade de um grupo de pessoas, quando se consideram apenas anos completos.</p>
+          </div>
+        </div>
+        <figure style="margin-top:16px">
+          <div class="fig"><svg class="chart diagram" viewBox="0 0 640 190" role="img" aria-labelledby="nl-t">
+<title id="nl-t">Discreta (pontos isolados) versus contínua (intervalo inteiro)</title>
+<text class="dlabel" x="0" y="26">DISCRETA — contagem: só alguns valores (aqui, inteiros)</text>
+<line class="axis" x1="20" x2="620" y1="62" y2="62"/>
+<circle class="dot c3" cx="40" cy="62" r="6"/>
+<text class="tick" x="40" y="88" text-anchor="middle">0</text>
+<circle class="dot c3" cx="135" cy="62" r="6"/>
+<text class="tick" x="135" y="88" text-anchor="middle">1</text>
+<circle class="dot c3" cx="230" cy="62" r="6"/>
+<text class="tick" x="230" y="88" text-anchor="middle">2</text>
+<circle class="dot c3" cx="325" cy="62" r="6"/>
+<text class="tick" x="325" y="88" text-anchor="middle">3</text>
+<circle class="dot c3" cx="420" cy="62" r="6"/>
+<text class="tick" x="420" y="88" text-anchor="middle">4</text>
+<circle class="dot c3" cx="515" cy="62" r="6"/>
+<text class="tick" x="515" y="88" text-anchor="middle">5</text>
+<circle class="dot c3" cx="610" cy="62" r="6"/>
+<text class="tick" x="610" y="88" text-anchor="middle">6</text>
+<text class="note" x="330" y="108" text-anchor="middle">entre 2 e 3 alunos não existe “2,4 alunos”</text>
+<text class="dlabel" x="0" y="138">CONTÍNUA — medida: qualquer valor do intervalo</text>
+<line class="axis" x1="20" x2="620" y1="166" y2="166"/>
+<rect class="bar c1" x="40" y="160" width="570" height="12" rx="6"/>
+<text class="tick" x="40" y="186" text-anchor="middle">1,50 m</text>
+<text class="tick" x="610" y="186" text-anchor="end">1,70 m</text>
+<text class="note" x="330" y="186" text-anchor="middle">1,5734… m também é possível</text>
+</svg></div>
+          <figcaption>Discreta: pontos isolados, com “buracos” entre eles. Contínua: o intervalo inteiro está disponível.</figcaption>
+        </figure>
+        <div class="prose" style="margin-top:14px">
+          <p><strong>O detalhe mais inteligente do capítulo é a idade aparecer nas duas listas.</strong> Isso mostra que a classificação depende de <em>como</em> a variável é registrada, e não só do nome dela:</p>
+          <ul>
+            <li>“Quantos anos você tem?” → 16, 17, 18 (anos completos) → <span class="quant">discreta</span>.</li>
+            <li>“Qual é a sua idade exata?” → 16 anos, 4 meses e 12 dias → <span class="quant">contínua</span>.</li>
+          </ul>
+          <p>Um atalho que funciona quase sempre: <strong>se veio de uma contagem, é discreta; se veio de uma medição (régua, balança, cronômetro), é contínua.</strong></p>
+        </div>
+        <div class="box comp" style="margin-top:12px">
+          <div class="lbl">Complemento para melhor compreensão</div>
+          <ul>
+            <li><strong>O critério mais preciso.</strong> “Só valores inteiros” é uma simplificação escolar. O que define uma variável discreta é ela assumir valores <em>isolados</em>, que dá para listar um a um (0, 1, 2, 3…), com saltos entre eles. Uma variável contínua, ao contrário, admite qualquer valor entre dois valores possíveis. Em prova escolar, use a definição da apostila; guarde esta para entender o porquê.</li>
+            <li><strong>Salário.</strong> A apostila classifica salário como contínuo, que é a convenção mais comum no ensino médio (dinheiro é tratado como uma medida). Tecnicamente ele anda de centavo em centavo, por isso alguns livros discutem essa classificação. Na sua prova, siga a apostila: <strong>salário = contínua</strong>.</li>
+          </ul>
+        </div>
+
+        <h4 class="t"><span class="k">EF1</span>Exercício de Fixação do Capítulo 1</h4>
+        <div class="ex">
+          <div class="ex-head">
+            <div class="ex-id">EF1 · pág. 2</div>
+            <div class="ex-q">
+              <p>Será realizada uma pesquisa entre os alunos da 2ª série do Ensino Médio de uma escola.</p>
+              <p><strong>a)</strong> Qual é a população estatística?<br><strong>b)</strong> Classifique cada variável como qualitativa ou quantitativa: altura; preferência por tipo de filme; última nota de Matemática.<br><strong>c)</strong> Classifique as variáveis quantitativas do item anterior como discretas ou contínuas.</p>
+            </div>
+          </div>
+          <details open>
+            <summary>Resolução comentada</summary>
+            <div class="sol">
+              <div class="step"><i>a</i><div>A população é o conjunto de <em>todos</em> os elementos sobre os quais se quer concluir algo. <div class="ans">Todos os alunos da 2ª série do Ensino Médio dessa escola.</div></div></div>
+              <div class="step"><i>b</i><div>
+                <div class="tbl-wrap"><table>
+                  <thead><tr><th>Variável</th><th>Valores possíveis</th><th>Classificação</th></tr></thead>
+                  <tbody>
+                    <tr><td>Altura</td><td>1,58 m; 1,72 m…</td><td class="new">quantitativa</td></tr>
+                    <tr><td>Preferência por tipo de filme</td><td>ação, comédia, terror…</td><td class="new">qualitativa</td></tr>
+                    <tr><td>Última nota de Matemática</td><td>6,5; 8,0; 9,2…</td><td class="new">quantitativa</td></tr>
+                  </tbody>
+                </table></div>
+              </div></div>
+              <div class="step"><i>c</i><div class="prose">
+                <p><strong>Altura → contínua</strong>, sem discussão: é uma medida e admite qualquer valor num intervalo (1,6437… m).</p>
+                <p><strong>Última nota de Matemática →</strong> este é o item que divide opiniões, e vale entender por quê. Pela lógica da apostila (discreta = só inteiros; a idade com meses e dias é contínua), uma nota que pode valer 6,5 ou 7,8 não é “só inteiros”, então a classificação esperada tende a ser <strong>contínua</strong>. Já pelo critério mais rigoroso do complemento acima, a nota anda em degraus fixos (de 0,5 em 0,5 ou de 0,1 em 0,1) e não admite “7,3333…”, o que a tornaria <strong>discreta</strong>.</p>
+                <div class="ans">Altura: contínua. Nota: contínua pela definição da apostila (admite decimais) — mas justifique na prova.</div>
+                <div class="box note"><div class="lbl">Lacuna do material</div><p>As fotos não trazem o gabarito deste EF. Se o seu professor considerar a nota <em>discreta</em>, o argumento dele é o dos “degraus fixos”. Escrever a justificativa junto com a classificação protege você nas duas leituras.</p></div>
+              </div></div>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ================= CAPÍTULO 2 ================= -->
+      <article class="chap" id="cap2">
+        <div class="chap-tag">Capítulo 2 · págs. 2–4</div>
+        <h3>Tabela de frequências</h3>
+        <div class="prose" style="margin-top:10px">
+          <p>Só olhar para os dados de uma pesquisa não explica o comportamento das variáveis. O primeiro passo para obter informações mais resumidas e precisas é construir uma <strong>tabela de frequências</strong>. Para isso, a apostila define alguns termos, sempre com o mesmo exemplo: a altura (em metros) dos 20 alunos de uma sala.</p>
+        </div>
+
+        <h4 class="t"><span class="k">2.1</span>Dados brutos</h4>
+        <div class="prose">
+          <p><strong>Dados brutos</strong> são o conjunto de dados que será analisado, mas que <strong>ainda não está organizado</strong> — exatamente na ordem em que foram anotados.</p>
+        </div>
+        <div class="data-strip" style="margin-top:10px">1,55 1,60 1,58 1,70 1,50 1,60 1,53 1,65 1,62 1,65 1,57 1,62 1,63 1,55 1,70 1,60 1,53 1,60 1,70 1,57</div>
+
+        <h4 class="t"><span class="k">2.2</span>Rol</h4>
+        <div class="prose">
+          <p><strong>Rol</strong> é o conjunto de dados <strong>ordenado</strong>, em ordem crescente ou decrescente. São os mesmos 20 valores — nenhum some, nenhum aparece a mais:</p>
+        </div>
+        <div class="data-strip" style="margin-top:10px"><b>1,50</b> 1,53 1,53 1,55 1,55 1,57 1,57 1,58 1,60 1,60 1,60 1,60 1,62 1,62 1,63 1,65 1,65 1,70 1,70 <b>1,70</b></div>
+        <div class="prose" style="margin-top:10px">
+          <p><strong>Como montar o rol sem errar:</strong> risque cada valor dos dados brutos à medida que o escreve no rol e, no fim, confira a quantidade (20 entraram, 20 saíram). Valores repetidos continuam repetidos — o 1,60 aparece quatro vezes.</p>
+        </div>
+
+        <h4 class="t"><span class="k">2.3</span>Amplitude</h4>
+        <div class="prose">
+          <p>A <strong>amplitude</strong> é a diferença entre o maior e o menor valor do conjunto. Com o rol pronto, basta olhar as pontas:</p>
+        </div>
+        <div class="formula" style="margin-top:10px"><span>amplitude = maior − menor</span><span>1,70 − 1,50 = <strong>0,20 m</strong></span></div>
+        <div class="box comp" style="margin-top:12px">
+          <div class="lbl">Complemento para melhor compreensão</div>
+          <p>A amplitude mede o quanto os dados estão <em>espalhados</em>: 0,20 m significa que, do mais baixo ao mais alto, a diferença é de 20 cm. É a medida de dispersão mais simples, mas depende só dos dois extremos — um único aluno de 1,95 m mudaria a amplitude para 0,45 m, mesmo que todos os outros continuassem iguais.</p>
+        </div>
+
+        <h4 class="t"><span class="k">2.4</span>Frequência absoluta (f)</h4>
+        <div class="prose">
+          <p>A <strong>frequência absoluta</strong> é o <strong>número de vezes que um valor aparece</strong> na amostra. Contando no rol:</p>
+        </div>
+        <div class="tbl-wrap" style="margin-top:10px">
+          <table>
+            <caption>Altura dos 20 alunos — frequências</caption>
+            <thead><tr><th>Altura (m)</th><th>f</th><th>f<sub>r</sub> = f ÷ n</th><th>f<sub>r</sub> (%)</th></tr></thead>
+            <tbody>
+              <tr><td>1,50</td><td>1</td><td>1 ÷ 20 = 0,05</td><td>5%</td></tr>
+              <tr><td>1,53</td><td>2</td><td>2 ÷ 20 = 0,10</td><td>10%</td></tr>
+              <tr><td>1,55</td><td>2</td><td>2 ÷ 20 = 0,10</td><td>10%</td></tr>
+              <tr><td>1,57</td><td>2</td><td>2 ÷ 20 = 0,10</td><td>10%</td></tr>
+              <tr><td>1,58</td><td>1</td><td>1 ÷ 20 = 0,05</td><td>5%</td></tr>
+              <tr><td>1,60</td><td class="hl">4</td><td>4 ÷ 20 = 0,20</td><td class="hl">20%</td></tr>
+              <tr><td>1,62</td><td>2</td><td>2 ÷ 20 = 0,10</td><td>10%</td></tr>
+              <tr><td>1,63</td><td>1</td><td>1 ÷ 20 = 0,05</td><td>5%</td></tr>
+              <tr><td>1,65</td><td>2</td><td>2 ÷ 20 = 0,10</td><td>10%</td></tr>
+              <tr><td>1,70</td><td>3</td><td>3 ÷ 20 = 0,15</td><td>15%</td></tr>
+              <tr class="total"><td>Total</td><td>20</td><td>1,00</td><td>100%</td></tr>
+            </tbody>
+          </table>
+          <div class="tbl-note">A soma das frequências absolutas é sempre o total de observações (n = 20); a soma das relativas é sempre 1 (100%).</div>
+        </div>
+
+        <h4 class="t"><span class="k">2.5</span>Frequência relativa (f<sub>r</sub>)</h4>
+        <div class="prose">
+          <p><strong>Por que a frequência absoluta não basta?</strong> Porque ela não leva em conta o tamanho da pesquisa. O exemplo da apostila: 5 pessoas com nível superior em um total de 20 não têm a mesma representatividade que 5 pessoas em uma pesquisa com 100. No primeiro caso, 5 é um quarto do grupo; no segundo, é só um vigésimo.</p>
+          <p>Para comparar populações de tamanhos diferentes, usa-se a <strong>frequência relativa</strong>: a razão entre a frequência absoluta <em>f</em> e o número total de observações <em>n</em>.</p>
+        </div>
+        <div class="formula" style="margin-top:10px">
+          <span>f<sub>r</sub> = <span class="frac"><span>f</span><span>n</span></span></span>
+          <span>0 ≤ f<sub>r</sub> ≤ 1</span>
+          <span>f<sub>r</sub>(%) = f<sub>r</sub> × 100</span>
+        </div>
+        <div class="prose" style="margin-top:12px">
+          <p><strong>Por que 0 ≤ f<sub>r</sub> ≤ 1?</strong> Como f ≤ n (um valor não pode aparecer mais vezes do que o total de observações), a divisão f ÷ n nunca passa de 1. Por isso é comum escrever f<sub>r</sub> em porcentagem: 0,20 = 20%.</p>
+          <p><strong>As três conversões que você vai usar o tempo todo:</strong></p>
+          <ul>
+            <li>de f para f<sub>r</sub>: divida por n → 4 ÷ 20 = 0,20;</li>
+            <li>de f<sub>r</sub> para %: multiplique por 100 → 0,20 × 100 = 20%;</li>
+            <li>de f<sub>r</sub> para f (o caminho de volta): multiplique por n → 0,21 × 200 = 42.</li>
+          </ul>
+        </div>
+        <div class="g2" style="margin-top:14px">
+          <div class="card"><h5>5 em 20</h5><p>f = 5 · f<sub>r</sub> = 5 ÷ 20 = 0,25 → <strong>25%</strong></p></div>
+          <div class="card"><h5>5 em 100</h5><p>f = 5 · f<sub>r</sub> = 5 ÷ 100 = 0,05 → <strong>5%</strong></p></div>
+        </div>
+        <p class="src" style="margin-top:8px">Mesma frequência absoluta, representatividades completamente diferentes — é para isso que serve a frequência relativa.</p>
+
+        <h4 class="t"><span class="k">ER1</span>Exercício Resolvido 1 — variável qualitativa em tabela</h4>
+        <div class="ex">
+          <div class="ex-head">
+            <div class="ex-id">ER1 · pág. 4</div>
+            <div class="ex-q">
+              <p>Pesquisa com 20 pessoas sobre o nível de escolaridade: <strong>F</strong> = até o ensino fundamental completo; <strong>M</strong> = até o ensino médio completo; <strong>S</strong> = ensino superior completo ou acima.</p>
+              <div class="data-strip">F, F, M, F, S, F, M, M, M, F, S, S, M, S, F, F, M, M, S, F</div>
+            </div>
+          </div>
+          <details open>
+            <summary>Resolução comentada</summary>
+            <div class="sol">
+              <div class="step"><i>1</i><div>Conte cada categoria (dica: risque a lápis à medida que conta). F aparece 8 vezes, M aparece 7 e S aparece 5. Conferência: 8 + 7 + 5 = 20 ✓.</div></div>
+              <div class="step"><i>2</i><div>Divida cada f por n = 20 e passe para porcentagem.</div></div>
+              <div class="tbl-wrap"><table>
+                <thead><tr><th>Nível de escolaridade</th><th>f</th><th>f<sub>r</sub></th><th>f<sub>r</sub> (%)</th></tr></thead>
+                <tbody>
+                  <tr><td>Até o fundamental completo (F)</td><td>8</td><td>0,40</td><td>40%</td></tr>
+                  <tr><td>Até o médio completo (M)</td><td>7</td><td>0,35</td><td>35%</td></tr>
+                  <tr><td>Superior completo ou acima (S)</td><td>5</td><td>0,25</td><td>25%</td></tr>
+                  <tr class="total"><td>Total</td><td>20</td><td>1,00</td><td>100%</td></tr>
+                </tbody>
+              </table></div>
+              <p>Repare: a tabela de frequências funciona igualzinho para variáveis <span class="qual">qualitativas</span> — a primeira coluna traz categorias em vez de números.</p>
+            </div>
+          </details>
+        </div>
+
+        <h4 class="t"><span class="k">EF1</span>Exercício de Fixação — estado civil</h4>
+        <div class="ex">
+          <div class="ex-head">
+            <div class="ex-id">EF1 · pág. 4</div>
+            <div class="ex-q">
+              <p>Pesquisa com 25 pessoas sobre o estado civil (<strong>c</strong> = casado, <strong>s</strong> = solteiro, <strong>d</strong> = divorciado). Preencha a tabela de frequências.</p>
+              <div class="data-strip">c, s, s, c, c, c, d, d, d, s, d, c, c, c, c, s, s, c, s, s, c, s, s, d, c</div>
+            </div>
+          </div>
+          <details open>
+            <summary>Resolução comentada</summary>
+            <div class="sol">
+              <div class="step"><i>1</i><div>Contagem: c = 11, s = 9, d = 5. Conferência: 11 + 9 + 5 = <strong>25</strong> ✓ (o enunciado diz 25 pessoas).</div></div>
+              <div class="step"><i>2</i><div>Agora o divisor é <strong>n = 25</strong>, não 20: 11 ÷ 25 = 0,44; 9 ÷ 25 = 0,36; 5 ÷ 25 = 0,20.</div></div>
+              <div class="tbl-wrap"><table>
+                <thead><tr><th>Estado civil</th><th>f</th><th>f<sub>r</sub></th><th>f<sub>r</sub> (%)</th></tr></thead>
+                <tbody>
+                  <tr><td>Casado</td><td>11</td><td>0,44</td><td>44%</td></tr>
+                  <tr><td>Solteiro</td><td>9</td><td>0,36</td><td>36%</td></tr>
+                  <tr><td>Divorciado</td><td>5</td><td>0,20</td><td>20%</td></tr>
+                  <tr class="total"><td>Total</td><td class="hl">25</td><td>1,00</td><td>100%</td></tr>
+                </tbody>
+              </table></div>
+              <div class="box sheet">
+                <div class="lbl">Na sua folha</div>
+                <p>Suas contagens e porcentagens estão todas certas (11, 9, 5 · 0,44 · 0,36 · 0,20). Só o <strong>total da frequência absoluta</strong> está escrito como <strong>20</strong>; o correto é <strong>25</strong>. Foi deslize de escrita — suas frequências relativas já foram calculadas com n = 25 —, mas em prova isso costuma custar ponto. Hábito que evita esse erro: sempre feche a coluna f somando e comparando com o enunciado.</p>
+              </div>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ================= CAPÍTULO 2 (classes) ================= -->
+      <article class="chap" id="cap2b">
+        <div class="chap-tag">Capítulo 2 · págs. 5–7</div>
+        <h3>Dados agrupados em classes (intervalos)</h3>
+
+        <h4 class="t"><span class="k">2.6</span>Quando a tabela valor a valor não funciona</h4>
+        <div class="prose">
+          <p>No ER2, a variável é a renda mensal de 20 trabalhadores sem carteira assinada — uma variável quantitativa contínua. Veja os dados brutos:</p>
+        </div>
+        <div class="tbl-wrap" style="margin-top:10px">
+          <table>
+            <caption>ER2 · renda mensal (R$) de 20 trabalhadores</caption>
+            <tbody>
+              <tr><td>260,00</td><td>305,00</td><td>473,50</td><td>279,67</td><td>783,00</td><td>1093,48</td><td>384,56</td><td>894,90</td><td>593,97</td><td>1259,00</td></tr>
+              <tr><td>659,45</td><td>450,00</td><td>958,00</td><td>876,57</td><td>590,00</td><td>720,65</td><td>700,00</td><td>279,96</td><td>678,90</td><td>393,00</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="prose" style="margin-top:12px">
+          <p>Nenhum valor se repete. Uma tabela valor a valor teria 20 linhas, todas com f = 1 — e não mostraria nada. A solução é <strong>agrupar os dados em classes</strong> (faixas de valores) e contar quantos caem em cada faixa.</p>
+          <p>Os valores vão de R$ 260,00 a R$ 1259,00, então todos cabem no intervalo <span class="mono">[260,00; 1260,00[</span>, cuja amplitude é 1260 − 260 = <strong>R$ 1000,00</strong>. Dividindo em 5 classes de mesma amplitude, cada classe tem 1000 ÷ 5 = <strong>200 reais</strong> de largura.</p>
+        </div>
+        <div class="box warn" style="margin-top:12px">
+          <div class="lbl">Detalhe que confunde</div>
+          <p>Pela definição da pág. 2, a amplitude <em>dos dados</em> seria 1259 − 260 = <strong>999</strong>. A apostila fala em R$ 1000,00 porque está medindo o <em>intervalo escolhido para agrupar</em> ([260; 1260[), arredondado para dar classes “redondas”. Não é contradição: são duas amplitudes diferentes — a dos dados (999) e a do intervalo das classes (1000).</p>
+        </div>
+
+        <h4 class="t"><span class="k">2.7</span>A notação a ⊢ b e a amplitude de classe</h4>
+        <div class="g2">
+          <div class="box def">
+            <div class="lbl">Classe a ⊢ b</div>
+            <p>Representa o intervalo real <span class="mono">[a, b[</span>: <strong>inclui a, mas não inclui b</strong>. O tracinho vertical fica do lado do número que entra.</p>
+          </div>
+          <div class="box def">
+            <div class="lbl">Amplitude de uma classe</div>
+            <p>É a diferença <strong>b − a</strong>. Em 260 ⊢ 460, a amplitude é 460 − 260 = 200.</p>
+          </div>
+        </div>
+        <figure style="margin-top:14px">
+          <div class="fig"><svg class="chart diagram" viewBox="0 0 640 150" role="img" aria-labelledby="iv-t">
+<title id="iv-t">Classes 460 ⊢ 660 e 660 ⊢ 860 na reta numérica</title>
+<line class="axis" x1="20" x2="620" y1="70" y2="70"/>
+<rect class="bar c1" x="80" y="64" width="240" height="12" rx="2"/>
+<rect class="bar c2" x="324" y="64" width="240" height="12" rx="2"/>
+<circle class="dot c1" cx="80" cy="70" r="8"/>
+<circle class="open" cx="320" cy="70" r="8"/>
+<circle class="dot c2" cx="324" cy="70" r="8"/>
+<circle class="open" cx="564" cy="70" r="8"/>
+<text class="plabel strong" x="200" y="46" text-anchor="middle">460 ⊢ 660</text>
+<text class="plabel strong" x="444" y="46" text-anchor="middle">660 ⊢ 860</text>
+<text class="tick" x="80" y="100" text-anchor="middle">460</text>
+<text class="tick" x="322" y="100" text-anchor="middle">660</text>
+<text class="tick" x="564" y="100" text-anchor="middle">860</text>
+<text class="note" x="80" y="126" text-anchor="middle">● entra</text>
+<text class="note" x="322" y="126" text-anchor="middle">660,00 pertence só à 2ª classe</text>
+<text class="note" x="564" y="126" text-anchor="middle">○ não entra</text>
+</svg></div>
+          <figcaption>Cada valor cai em exatamente uma classe: o limite superior de uma classe é o limite inferior da seguinte.</figcaption>
+        </figure>
+        <div class="box comp" style="margin-top:12px">
+          <div class="lbl">Complemento para melhor compreensão</div>
+          <p>Outras notações que aparecem em livros e provas: <span class="mono">a ⊣ b</span> = ]a, b] (inclui só b); <span class="mono">a ⊢⊣ b</span> = [a, b] (inclui os dois). A mais usada em tabelas de frequência é a da apostila, <span class="mono">a ⊢ b</span>, porque garante que nenhum valor seja contado duas vezes.</p>
+        </div>
+
+        <h4 class="t"><span class="k">2.8</span>A tabela em classes do ER2</h4>
+        <div class="tbl-wrap">
+          <table>
+            <caption>ER2 · renda mensal em 5 classes</caption>
+            <thead><tr><th>Classe (R$)</th><th>f</th><th>f<sub>r</sub></th><th>f<sub>r</sub> (%)</th><th>Quem está nela</th></tr></thead>
+            <tbody>
+              <tr><td>260 ⊢ 460</td><td>7</td><td>7 ÷ 20 = 0,35</td><td>35%</td><td style="text-align:left;white-space:normal;font-size:13px">260,00 · 279,67 · 279,96 · 305,00 · 384,56 · 393,00 · 450,00</td></tr>
+              <tr><td>460 ⊢ 660</td><td>4</td><td>4 ÷ 20 = 0,20</td><td>20%</td><td style="text-align:left;white-space:normal;font-size:13px">473,50 · 590,00 · 593,97 · 659,45</td></tr>
+              <tr><td>660 ⊢ 860</td><td>4</td><td>4 ÷ 20 = 0,20</td><td>20%</td><td style="text-align:left;white-space:normal;font-size:13px">678,90 · 700,00 · 720,65 · 783,00</td></tr>
+              <tr><td>860 ⊢ 1060</td><td>3</td><td>3 ÷ 20 = 0,15</td><td>15%</td><td style="text-align:left;white-space:normal;font-size:13px">876,57 · 894,90 · 958,00</td></tr>
+              <tr><td>1060 ⊢ 1260</td><td>2</td><td>2 ÷ 20 = 0,10</td><td>10%</td><td style="text-align:left;white-space:normal;font-size:13px">1093,48 · 1259,00</td></tr>
+              <tr class="total"><td>Total</td><td>20</td><td>1,00</td><td>100%</td><td></td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h5 class="s">O que a tabela permite concluir (e como ler cada frase)</h5>
+        <div class="prose">
+          <ul>
+            <li><strong>Há mais trabalhadores ganhando de R$ 260,00 a R$ 460,00 do que em qualquer outra classe</strong> — é a classe de maior frequência (7, ou 35%).</li>
+            <li><strong>75% (35% + 20% + 20%) recebem menos do que R$ 860,00</strong> — “menos do que 860” pega as três primeiras classes inteiras, porque 860 é justamente o limite que <em>não</em> entra em 660 ⊢ 860.</li>
+            <li><strong>Apenas 10% recebem pelo menos R$ 1060,00</strong> — “pelo menos 1060” significa ≥ 1060, que é exatamente a classe 1060 ⊢ 1260.</li>
+            <li><strong>A análise fica mais fácil com os dados agrupados</strong> — cinco linhas dizem mais do que vinte números soltos.</li>
+          </ul>
+        </div>
+        <div class="box def" style="margin-top:12px">
+          <div class="lbl">Ponto médio de uma classe</div>
+          <p>É o ponto que divide o intervalo da classe em duas partes iguais, e ele <strong>representa a classe</strong>: <span class="mono">PM = (a + b) ÷ 2</span>. Em 260 ⊢ 460, PM = (260 + 460) ÷ 2 = 360.</p>
+        </div>
+        <div class="box comp" style="margin-top:12px">
+          <div class="lbl">Complemento para melhor compreensão</div>
+          <ul>
+            <li><strong>Frequência acumulada.</strong> A frase “75% ganham menos de R$ 860” é uma soma acumulada. Somando as frequências de cima para baixo: 7 → 11 → 15 → 18 → 20 (ou 35% → 55% → 75% → 90% → 100%). Com isso você responde na hora “quantos ganham menos de X”, com X em um limite de classe.</li>
+            <li><strong>Pontos médios do ER2:</strong> 360, 560, 760, 960 e 1160. Eles serão usados mais adiante no conteúdo, para calcular a média de dados agrupados.</li>
+            <li><strong>O preço do agrupamento:</strong> depois de agrupar, você sabe que 7 pessoas estão entre 260 e 460, mas não sabe mais os valores exatos. Ganha-se clareza, perde-se detalhe.</li>
+            <li><strong>Quantas classes usar?</strong> A apostila diz que não há regra fixa. Uma referência usada em muitos livros é algo em torno de √n classes (com n = 20, cerca de 4 ou 5).</li>
+          </ul>
+        </div>
+
+        <h5 class="s">Receita para montar qualquer tabela em classes</h5>
+        <div class="prose">
+          <ol>
+            <li>Ache o menor e o maior valor (fazer o rol ajuda).</li>
+            <li>Escolha o ponto de partida e o número de classes (ou use o que o enunciado mandar).</li>
+            <li>Calcule a amplitude de cada classe e escreva todas no formato a ⊢ b.</li>
+            <li>Conte quantos valores caem em cada classe — valor igual ao limite superior vai para a classe seguinte.</li>
+            <li>Confira: a soma de f tem de dar n.</li>
+            <li>Calcule f<sub>r</sub> = f ÷ n e a porcentagem; a soma tem de dar 1 (100%).</li>
+          </ol>
+        </div>
+
+        <h4 class="t"><span class="k">T1</span>Tarefa Complementar 1 — completar lacunas</h4>
+        <div class="ex">
+          <div class="ex-head">
+            <div class="ex-id">T1 · pág. 6</div>
+            <div class="ex-q">
+              <p>Pesquisa com 200 alunos sobre a bebida preferida. Dados conhecidos: Água f = 108; Guaraná f<sub>r</sub> = 0,21; Suco f = 12; Outros = 8,50%. Complete a tabela.</p>
+            </div>
+          </div>
+          <details open>
+            <summary>Resolução comentada</summary>
+            <div class="sol">
+              <div class="step"><i>1</i><div><strong>Água:</strong> f<sub>r</sub> = 108 ÷ 200 = 0,54 → 54%.</div></div>
+              <div class="step"><i>2</i><div><strong>Guaraná</strong> (caminho de volta): f = 0,21 × 200 = 42 → 21%.</div></div>
+              <div class="step"><i>3</i><div><strong>Suco:</strong> f<sub>r</sub> = 12 ÷ 200 = 0,06 → 6%.</div></div>
+              <div class="step"><i>4</i><div><strong>Outros:</strong> 8,50% = 0,085 → f = 0,085 × 200 = 17.</div></div>
+              <div class="step"><i>5</i><div><strong>Soda</strong> é o que falta para 200: 200 − (108 + 42 + 12 + 17) = 21 → f<sub>r</sub> = 21 ÷ 200 = 0,105 → 10,5%.</div></div>
+              <div class="tbl-wrap"><table>
+                <thead><tr><th>Bebida</th><th>f</th><th>f<sub>r</sub></th><th>f<sub>r</sub> (%)</th></tr></thead>
+                <tbody>
+                  <tr><td>Água</td><td>108</td><td class="new">0,54</td><td class="new">54%</td></tr>
+                  <tr><td>Guaraná</td><td class="new">42</td><td>0,21</td><td class="new">21%</td></tr>
+                  <tr><td>Soda</td><td class="new">21</td><td class="new">0,105</td><td class="new">10,5%</td></tr>
+                  <tr><td>Suco</td><td>12</td><td class="new">0,06</td><td class="new">6%</td></tr>
+                  <tr><td>Outros</td><td class="new">17</td><td class="new">0,085</td><td>8,50%</td></tr>
+                  <tr class="total"><td>Total</td><td>200</td><td>1,00</td><td>100%</td></tr>
+                </tbody>
+              </table><div class="tbl-note">Em azul, as lacunas preenchidas. Confere com o gabarito da pág. 7 ✓</div></div>
+              <p><strong>Estratégia:</strong> primeiro preencha as linhas que têm algum dado; a linha sem nenhum dado (Soda) sai por último, “pelo que falta” para o total.</p>
+            </div>
+          </details>
+        </div>
+
+        <h4 class="t" style="margin-top:22px"><span class="k">T2</span>Tarefa Complementar 2 — 40 rendas nas classes do ER2</h4>
+        <div class="ex">
+          <div class="ex-head">
+            <div class="ex-id">T2 · pág. 6</div>
+            <div class="ex-q">
+              <p>Complete a tabela de frequências da renda mensal de outro grupo de trabalhadores (40 valores), usando as mesmas classes do ER2.</p>
+              <div class="data-strip">500,00 · 329,89 · 1250,90 · 598,20 · 987,65 · 345,67 · 876,54 · 489,00 · 432,00 · 356,65 · 567,90 · 450,00 · 590,67 · 578,90 · 489,27 · 675,89 · 270,98 · 640,80 · 1257,00 · 950,00 · 590,47 · 723,89 · 539,92 · 1010,50 · 990,99 · 357,00 · 689,43 · 325,00 · 387,78 · 378,00 · 260,00 · 432,00 · 347,00 · 1247,98 · 542,70 · <b>660,00</b> · 759,50 · 845,80 · 375,90 · 435,78</div>
+            </div>
+          </div>
+          <details open>
+            <summary>Resolução comentada</summary>
+            <div class="sol">
+              <div class="tbl-wrap"><table>
+                <thead><tr><th>Classe (R$)</th><th>f</th><th>f<sub>r</sub></th><th>f<sub>r</sub> (%)</th><th>Quem está nela</th></tr></thead>
+                <tbody>
+                  <tr><td>260 ⊢ 460</td><td>15</td><td>0,375</td><td>37,5%</td><td style="text-align:left;white-space:normal;font-size:13px">260,00 · 270,98 · 325,00 · 329,89 · 345,67 · 347,00 · 356,65 · 357,00 · 375,90 · 378,00 · 387,78 · 432,00 · 432,00 · 435,78 · 450,00</td></tr>
+                  <tr><td>460 ⊢ 660</td><td>11</td><td>0,275</td><td>27,5%</td><td style="text-align:left;white-space:normal;font-size:13px">489,00 · 489,27 · 500,00 · 539,92 · 542,70 · 567,90 · 578,90 · 590,47 · 590,67 · 598,20 · 640,80</td></tr>
+                  <tr><td>660 ⊢ 860</td><td>6</td><td>0,150</td><td>15,0%</td><td style="text-align:left;white-space:normal;font-size:13px"><strong>660,00</strong> · 675,89 · 689,43 · 723,89 · 759,50 · 845,80</td></tr>
+                  <tr><td>860 ⊢ 1060</td><td>5</td><td>0,125</td><td>12,5%</td><td style="text-align:left;white-space:normal;font-size:13px">876,54 · 950,00 · 987,65 · 990,99 · 1010,50</td></tr>
+                  <tr><td>1060 ⊢ 1260</td><td>3</td><td>0,075</td><td>7,5%</td><td style="text-align:left;white-space:normal;font-size:13px">1247,98 · 1250,90 · 1257,00</td></tr>
+                  <tr class="total"><td>Total</td><td>40</td><td>1,000</td><td>100%</td><td></td></tr>
+                </tbody>
+              </table><div class="tbl-note">Confere com o gabarito da pág. 7 ✓ — atenção: aqui n = 40, então f<sub>r</sub> = f ÷ 40.</div></div>
+              <div class="box warn"><div class="lbl">A pegadinha do T2</div><p>O valor <strong>660,00</strong> não entra em 460 ⊢ 660 (o 660 é excluído dessa classe); ele vai para <strong>660 ⊢ 860</strong>. Já o <strong>260,00</strong> entra na primeira classe, porque 260 é incluído em 260 ⊢ 460. Quem erra isso encontra 12 e 5 em vez de 11 e 6.</p></div>
+              <p><strong>Método que evita erro com 40 números:</strong> percorra a lista uma única vez, fazendo um risquinho na classe de cada valor (tipo placar: ||||), em vez de procurar “todos os valores da classe 1”, depois “todos da classe 2”… Ao final, confira que os risquinhos somam 40.</p>
+            </div>
+          </details>
+        </div>
+
+        <h4 class="t" style="margin-top:22px"><span class="k">T3</span>Tarefa Complementar 3 — notas de redação</h4>
+        <div class="ex">
+          <div class="ex-head">
+            <div class="ex-id">T3 · pág. 6</div>
+            <div class="ex-q">
+              <p>Notas de 20 alunos em uma prova de redação:</p>
+              <div class="data-strip">3,3 · 4,2 · 2,1 · 5,6 · 6,2 · 7,4 · 4,8 · 1,9 · 8,0 · 4,8 · 6,5 · 3,2 · 3,5 · 8,6 · 4,5 · 3,8 · 5,3 · 1,2 · 5,4 · 9,3</div>
+              <p><strong>a)</strong> Agrupe os dados em seis classes de intervalo, cada uma com amplitude 1,5 a partir da nota 1,0, e faça a tabela de frequências.<br><strong>b)</strong> Qual é a porcentagem de alunos com nota maior ou igual a 4?</p>
+            </div>
+          </div>
+          <details open>
+            <summary>Resolução comentada</summary>
+            <div class="sol">
+              <div class="step"><i>a</i><div>Começando em 1,0 e somando 1,5 de cada vez: 1,0 → 2,5 → 4,0 → 5,5 → 7,0 → 8,5 → 10,0. São seis classes.</div></div>
+              <div class="tbl-wrap"><table>
+                <thead><tr><th>Classe</th><th>f</th><th>f<sub>r</sub></th><th>f<sub>r</sub> (%)</th><th>Notas</th></tr></thead>
+                <tbody>
+                  <tr><td>1,0 ⊢ 2,5</td><td>3</td><td>0,15</td><td>15%</td><td style="text-align:left">1,2 · 1,9 · 2,1</td></tr>
+                  <tr><td>2,5 ⊢ 4,0</td><td>4</td><td>0,20</td><td>20%</td><td style="text-align:left">3,2 · 3,3 · 3,5 · 3,8</td></tr>
+                  <tr><td>4,0 ⊢ 5,5</td><td>6</td><td>0,30</td><td>30%</td><td style="text-align:left">4,2 · 4,5 · 4,8 · 4,8 · 5,3 · 5,4</td></tr>
+                  <tr><td>5,5 ⊢ 7,0</td><td>3</td><td>0,15</td><td>15%</td><td style="text-align:left">5,6 · 6,2 · 6,5</td></tr>
+                  <tr><td>7,0 ⊢ 8,5</td><td>2</td><td>0,10</td><td>10%</td><td style="text-align:left">7,4 · 8,0</td></tr>
+                  <tr><td>8,5 ⊢ 10,0</td><td>2</td><td>0,10</td><td>10%</td><td style="text-align:left">8,6 · 9,3</td></tr>
+                  <tr class="total"><td>Total</td><td>20</td><td>1,00</td><td>100%</td><td></td></tr>
+                </tbody>
+              </table><div class="tbl-note">Confere com o gabarito da pág. 7 ✓</div></div>
+              <div class="step"><i>b</i><div>“Maior ou igual a 4” começa exatamente no limite inferior de uma classe (4,0 ⊢ 5,5, que <em>inclui</em> o 4,0). Então basta somar as classes de 4,0 em diante: 30% + 15% + 10% + 10% = 65% (ou 6 + 3 + 2 + 2 = 13 alunos de 20).
+                <div class="ans">65% dos alunos.</div></div></div>
+              <div class="box comp"><div class="lbl">Complemento para melhor compreensão</div><p>Se a pergunta fosse “nota maior ou igual a 5”, a tabela não bastaria: 5 fica no meio da classe 4,0 ⊢ 5,5, e a tabela não diz quantas notas dessa classe são ≥ 5. Aí seria preciso voltar aos dados brutos. E um detalhe: com 8,5 ⊢ 10,0, uma nota 10,0 ficaria de fora; quando existe nota máxima possível, costuma-se fechar a última classe (8,5 ⊢⊣ 10,0).</p></div>
+            </div>
+          </details>
+        </div>
+      </article>
+
+      <!-- ================= CAPÍTULO 3 ================= -->
+      <article class="chap" id="cap3">
+        <div class="chap-tag">Capítulo 3 · págs. 8–9</div>
+        <h3>Gráficos</h3>
+        <div class="prose" style="margin-top:10px">
+          <p>Organizar dados em tabelas facilita o trabalho, mas os <strong>gráficos</strong> são outra forma — muitas vezes mais rápida de ler — de apresentar os dados de uma pesquisa. Cada tipo de gráfico tem um “trabalho” em que é melhor. O capítulo apresenta quatro, sempre por meio de exercícios.</p>
+        </div>
+
+        <h4 class="t"><span class="k">3.1</span>Gráfico de linhas — evolução ao longo do tempo</h4>
+        <div class="prose">
+          <p>Pontos ligados por segmentos, com o <strong>tempo no eixo horizontal</strong>. Serve para mostrar como algo cresce ou diminui. O ponto-chave de leitura: <strong>quanto mais inclinado o segmento, mais acentuada a variação naquele período</strong>; segmento quase horizontal = pouca variação.</p>
+        </div>
+        <div class="formula" style="margin-top:12px">
+          <span>variação percentual = <span class="frac"><span>valor final − valor inicial</span><span>valor inicial</span></span> × 100</span>
+        </div>
+
+        <div class="ex" style="margin-top:16px">
+          <div class="ex-head">
+            <div class="ex-id">EF1 · pág. 8</div>
+            <div class="ex-q">
+              <p>O gráfico representa a quantidade de idosos existente no Japão e a previsão até 2020.</p>
+              <figure><div class="fig"><svg class="chart" viewBox="0 0 640 300" role="img" aria-labelledby="lc-t lc-d">
+<title id="lc-t">Idosos no Japão (milhões), 1970–2020</title>
+<desc id="lc-d">Linha com os pontos 1970: 11; 1980: 13; 1990: 17; 2000: 26; 2010: 34; 2020: 40 (previsão). O eixo vertical começa em 10.</desc>
+<line class="grid" x1="56" x2="600" y1="246" y2="246"/>
+<text class="tick" x="46" y="250" text-anchor="end">10</text>
+<line class="grid" x1="56" x2="600" y1="209" y2="209"/>
+<text class="tick" x="46" y="213" text-anchor="end">15</text>
+<line class="grid" x1="56" x2="600" y1="172" y2="172"/>
+<text class="tick" x="46" y="176" text-anchor="end">20</text>
+<line class="grid" x1="56" x2="600" y1="135" y2="135"/>
+<text class="tick" x="46" y="139" text-anchor="end">25</text>
+<line class="grid" x1="56" x2="600" y1="98" y2="98"/>
+<text class="tick" x="46" y="102" text-anchor="end">30</text>
+<line class="grid" x1="56" x2="600" y1="61" y2="61"/>
+<text class="tick" x="46" y="65" text-anchor="end">35</text>
+<line class="grid" x1="56" x2="600" y1="24" y2="24"/>
+<text class="tick" x="46" y="28" text-anchor="end">40</text>
+<line class="axis" x1="56" x2="600" y1="246" y2="246"/>
+<text class="tick" x="56" y="266" text-anchor="middle">1970</text>
+<text class="tick" x="164.8" y="266" text-anchor="middle">1980</text>
+<text class="tick" x="273.6" y="266" text-anchor="middle">1990</text>
+<text class="tick" x="382.4" y="266" text-anchor="middle">2000</text>
+<text class="tick" x="491.2" y="266" text-anchor="middle">2010</text>
+<text class="tick" x="600" y="266" text-anchor="middle">2020</text>
+<text class="axt" x="328.0" y="296" text-anchor="middle">Ano</text>
+<text class="axt" transform="translate(14 135.0) rotate(-90)" text-anchor="middle">População (milhões)</text>
+<path class="wash" d="M56,238.6 L164.8,223.8 L273.6,194.2 L382.4,127.6 L491.2,68.4 L600,24 L600,246 L56,246 Z"/>
+<path class="line s1" d="M56,238.6 L164.8,223.8 L273.6,194.2 L382.4,127.6 L491.2,68.4 L600,24"/>
+<path class="line hl" d="M56,238.6 L164.8,223.8"/>
+<circle class="dot s1" cx="56" cy="238.6" r="4.5"><title>1970: 11 milhões</title></circle>
+<text class="plabel" x="60" y="222.6" text-anchor="start">(1970, 11)</text>
+<circle class="dot s1" cx="164.8" cy="223.8" r="4.5"><title>1980: 13 milhões</title></circle>
+<text class="plabel" x="170.8" y="241.8" text-anchor="start">(1980, 13)</text>
+<circle class="dot s1" cx="273.6" cy="194.2" r="4.5"><title>1990: 17 milhões</title></circle>
+<text class="plabel" x="265.6" y="184.2" text-anchor="end">(1990, 17)</text>
+<circle class="dot s1" cx="382.4" cy="127.6" r="4.5"><title>2000: 26 milhões</title></circle>
+<text class="plabel" x="374.4" y="117.6" text-anchor="end">(2000, 26)</text>
+<circle class="dot s1" cx="491.2" cy="68.4" r="4.5"><title>2010: 34 milhões</title></circle>
+<text class="plabel" x="483.2" y="58.4" text-anchor="end">(2010, 34)</text>
+<circle class="dot s1" cx="600" cy="24" r="4.5"><title>2020: 40 milhões</title></circle>
+<text class="plabel" x="592" y="14" text-anchor="end">(2020, 40) previsão</text>
+</svg></div><figcaption>Reconstrução do gráfico da apostila, com os mesmos pontos. Em laranja, o trecho de menor subida (a resposta do item a).</figcaption></figure>
+              <p><strong>a)</strong> Em que década o aumento da população de idosos foi menos acentuado?<br><strong>b)</strong> Qual foi o aumento percentual de 1970 a 2010?<br><strong>c)</strong> Qual é o aumento percentual previsto para 2010 a 2020?</p>
+            </div>
+          </div>
+          <details open>
+            <summary>Resolução comentada</summary>
+            <div class="sol">
+              <div class="step"><i>a</i><div>Calcule o aumento de cada década: 1970→1980: +2; 1980→1990: +4; 1990→2000: +9; 2000→2010: +8; 2010→2020: +6 (milhões). O menor aumento — o segmento menos inclinado — é o de +2.
+                <div class="ans">Década de 1970 (de 1970 a 1980).</div></div></div>
+              <div class="step"><i>b</i><div>Inicial = 11 (1970); final = 34 (2010).<br><span class="mono">(34 − 11) ÷ 11 = 23 ÷ 11 ≈ 2,0909 → 209,09%</span>
+                <div class="ans">≈ 209,09% de aumento.</div></div></div>
+              <div class="step"><i>c</i><div>Inicial = 34 (2010); final = 40 (2020, previsão).<br><span class="mono">(40 − 34) ÷ 34 = 6 ÷ 34 ≈ 0,1765 → 17,65%</span>
+                <div class="ans">≈ 17,65% de aumento (previsto).</div></div></div>
+              <div class="box warn"><div class="lbl">A pegadinha do item b</div><p>Fazer 34 ÷ 11 ≈ 3,0909 e responder “309,09%” é o erro clássico: esse número diz que o valor de 2010 <em>equivale a</em> 309% do valor de 1970. O <strong>aumento</strong> é o que passou de 100%: 309,09% − 100% = <strong>209,09%</strong>.</p></div>
+              <div class="box sheet"><div class="lbl">Na sua folha</div><p><strong>a)</strong> “70~80” ✓. <strong>b)</strong> 209,09% ✓ — você fugiu da pegadinha. <strong>c)</strong> 17,64% está praticamente certo: 6 ÷ 34 = 0,176470…, que <em>arredondado</em> para duas casas dá <strong>17,65%</strong> (17,64% é o valor truncado). Em questão de alternativas, fique atento a qual arredondamento as opções usam.</p></div>
+              <div class="box comp"><div class="lbl">Complemento para melhor compreensão</div><ul>
+                <li><strong>“Acentuado” = inclinação = aumento absoluto.</strong> Se a pergunta fosse “menor aumento <em>percentual</em>”, a resposta mudaria: 1970→1980 foi +18,18% (2 ÷ 11), enquanto 2010→2020 é +17,65%. Leia sempre se a questão pede variação absoluta ou percentual.</li>
+                <li><strong>O eixo vertical começa em 10, não em 0.</strong> Isso é permitido, mas faz as diferenças parecerem maiores do que são. Antes de concluir “olhando o desenho”, leia os números do eixo — esse é um recurso muito explorado em questões de interpretação de gráficos.</li>
+              </ul></div>
+            </div>
+          </details>
+        </div>
+
+        <h4 class="t"><span class="k">3.2</span>Gráfico de setores (“pizza”) — partes de um todo</h4>
+        <div class="prose">
+          <p>O círculo representa o <strong>todo (100%)</strong> e é dividido em setores circulares. A apostila destaca a propriedade que resolve todas as questões: <strong>a medida do ângulo central de cada setor é proporcional à frequência</strong> daquela categoria. Como a volta completa tem 360°:</p>
+        </div>
+        <div class="formula" style="margin-top:10px">
+          <span>100% ↔ 360°</span><span>1% ↔ 3,6°</span><span>ângulo = f<sub>r</sub> × 360°</span>
+        </div>
+        <div class="prose" style="margin-top:10px">
+          <p>Em forma de regra de três, para uma categoria com <em>p</em>%: <span class="mono">100% — 360° e p% — x → x = p × 3,6°</span>. E o caminho de volta: um setor de 90° é 90 ÷ 360 = ¼ = 25% do total.</p>
+        </div>
+
+        <div class="ex" style="margin-top:16px">
+          <div class="ex-head">
+            <div class="ex-id">EF2 · pág. 8</div>
+            <div class="ex-q">
+              <p>A facilidade de financiamento tem levado muitas pessoas a contrair empréstimos por impulso e, sem conseguir pagar, ter o nome incluído no SPC (Serviço de Proteção ao Crédito). Em uma pesquisa com <strong>900 usuários</strong> de uma estação de metrô, obteve-se o gráfico de setores com a porcentagem dos protestados no SPC por faixa de idade (setembro de 2020).</p>
+              <figure><div class="fig"><svg class="chart pie" viewBox="0 0 520 300" role="img" aria-labelledby="ps-t ps-d">
+<title id="ps-t">Protestados no SPC por faixa de idade (900 usuários)</title>
+<desc id="ps-d">Setores: até 20 anos 6%; 21 a 30 anos 33%; 31 a 40 anos 32%; 41 a 50 anos 21%; mais de 50 anos 8%.</desc>
+<path class="slice o1" d="M150,150 L150,28 A122,122 0 0 1 194.9,36.6 Z"><title>até 20 anos: 6%</title></path>
+<path class="slice o2" d="M150,150 L194.9,36.6 A122,122 0 0 1 227.8,244 Z"><title>de 21 a 30 anos: 33%</title></path>
+<path class="slice o3" d="M150,150 L227.8,244 A122,122 0 0 1 31.8,180.3 Z"><title>de 31 a 40 anos: 32%</title></path>
+<path class="slice o4" d="M150,150 L31.8,180.3 A122,122 0 0 1 91.2,43.1 Z"><title>de 41 a 50 anos: 21%</title></path>
+<path class="slice o5" d="M150,150 L91.2,43.1 A122,122 0 0 1 150,28 Z"><title>mais de 50 anos: 8%</title></path>
+<text class="plabel strong" x="175.9" y="18.4" text-anchor="start">6%</text>
+<text class="inlabel t2" x="227.1" y="142.8" text-anchor="middle">33%</text>
+<text class="inlabel t3" x="125.9" y="229.3" text-anchor="middle">32%</text>
+<text class="inlabel t4" x="78.3" y="124" text-anchor="middle">21%</text>
+<text class="inlabel t5" x="130.6" y="79.4" text-anchor="middle">8%</text>
+<rect class="slice o1" x="318" y="60" width="16" height="16" rx="3"/>
+<text class="leg" x="344" y="73">até 20 anos</text>
+<text class="leg muted" x="344" y="89">6%</text>
+<rect class="slice o2" x="318" y="94" width="16" height="16" rx="3"/>
+<text class="leg" x="344" y="107">de 21 a 30 anos</text>
+<text class="leg muted" x="344" y="123">33%</text>
+<rect class="slice o3" x="318" y="128" width="16" height="16" rx="3"/>
+<text class="leg" x="344" y="141">de 31 a 40 anos</text>
+<text class="leg muted" x="344" y="157">32%</text>
+<rect class="slice o4" x="318" y="162" width="16" height="16" rx="3"/>
+<text class="leg" x="344" y="175">de 41 a 50 anos</text>
+<text class="leg muted" x="344" y="191">21%</text>
+<rect class="slice o5" x="318" y="196" width="16" height="16" rx="3"/>
+<text class="leg" x="344" y="209">mais de 50 anos</text>
+<text class="leg muted" x="344" y="225">8%</text>
+</svg></div><figcaption>Reconstrução do gráfico: mesma ordem e mesmas porcentagens, começando no alto e seguindo no sentido horário.</figcaption></figure>
+              <p><strong>a)</strong> Qual a diferença, em número de protestados, entre os consumidores com até 20 anos e os da faixa de 31 a 40 anos?<br><strong>b)</strong> Calcule a medida aproximada do ângulo central do setor dos protestados na faixa de 21 a 30 anos.</p>
+            </div>
+          </div>
+          <details open>
+            <summary>Resolução comentada</summary>
+            <div class="sol">
+              <div class="box note"><div class="lbl">Leitura da foto</div><p>A legenda está ilegível na foto. A associação usada aqui (até 20 → 6%; 21–30 → 33%; 31–40 → 32%; 41–50 → 21%; mais de 50 → 8%) segue a ordem dos tons, do mais escuro ao mais claro, é a mesma que você anotou à mão na folha e fecha 100% (6 + 33 + 32 + 21 + 8 = 100).</p></div>
+              <div class="step"><i>a</i><div>Até 20 anos: 6% de 900 = 0,06 × 900 = 54. De 31 a 40 anos: 32% de 900 = 0,32 × 900 = 288. Diferença: 288 − 54 = 234.<br>Atalho: (32% − 6%) × 900 = 0,26 × 900 = 234.
+                <div class="ans">234 protestados.</div></div></div>
+              <div class="step"><i>b</i><div>21 a 30 anos = 33%. Ângulo = 0,33 × 360° = 118,8°.
+                <div class="ans">≈ 119° (118,8°).</div></div></div>
+              <div class="tbl-wrap"><table>
+                <caption>Tabela completa do gráfico (confira: soma 900 pessoas e 360°)</caption>
+                <thead><tr><th>Faixa de idade</th><th>%</th><th>Pessoas</th><th>Ângulo</th></tr></thead>
+                <tbody>
+                  <tr><td>até 20 anos</td><td>6%</td><td>54</td><td>21,6°</td></tr>
+                  <tr><td>21 a 30 anos</td><td>33%</td><td>297</td><td>118,8°</td></tr>
+                  <tr><td>31 a 40 anos</td><td>32%</td><td>288</td><td>115,2°</td></tr>
+                  <tr><td>41 a 50 anos</td><td>21%</td><td>189</td><td>75,6°</td></tr>
+                  <tr><td>mais de 50 anos</td><td>8%</td><td>72</td><td>28,8°</td></tr>
+                  <tr class="total"><td>Total</td><td>100%</td><td>900</td><td>360°</td></tr>
+                </tbody>
+              </table></div>
+            </div>
+          </details>
+        </div>
+
+        <div class="ex" style="margin-top:16px">
+          <div class="ex-head">
+            <div class="ex-id">EF3 · pág. 9</div>
+            <div class="ex-q">
+              <p>Em uma escola, cada aluno deve optar por um, e somente um, dos três idiomas: inglês, espanhol ou francês. A escolha de <strong>180 alunos</strong> está no gráfico. O ângulo central do setor do inglês é <strong>252°</strong> e apenas <strong>18 alunos</strong> escolheram francês.</p>
+              <figure><div class="fig"><svg class="chart pie" viewBox="0 0 520 300" role="img" aria-labelledby="pi-t pi-d">
+<title id="pi-t">Escolha de idioma por 180 alunos</title>
+<desc id="pi-d">Setor do inglês com ângulo central de 252°; setores de espanhol e francês a determinar (18 alunos no francês).</desc>
+<path class="slice c1" d="M150,150 L150,28 A122,122 0 1 1 34,187.7 Z"><title>Inglês</title></path>
+<path class="slice c2" d="M150,150 L34,187.7 A122,122 0 0 1 78.3,51.3 Z"><title>Espanhol</title></path>
+<path class="slice c3" d="M150,150 L78.3,51.3 A122,122 0 0 1 150,28 Z"><title>Francês</title></path>
+<text class="inlabel c1t" x="211.2" y="199.5" text-anchor="middle">252°</text>
+<text class="inlabel c2t" x="78.1" y="131.6" text-anchor="middle">?</text>
+<text class="inlabel c3t" x="125.1" y="78.4" text-anchor="middle">?</text>
+<rect class="slice c1" x="318" y="84" width="16" height="16" rx="3"/>
+<text class="leg" x="344" y="97">Inglês</text>
+<text class="leg muted" x="344" y="113">ângulo 252°</text>
+<rect class="slice c2" x="318" y="122" width="16" height="16" rx="3"/>
+<text class="leg" x="344" y="135">Espanhol</text>
+<text class="leg muted" x="344" y="151">? alunos</text>
+<rect class="slice c3" x="318" y="160" width="16" height="16" rx="3"/>
+<text class="leg" x="344" y="173">Francês</text>
+<text class="leg muted" x="344" y="189">18 alunos</text>
+</svg></div><figcaption>Esquema do gráfico de setores do EF3 (na apostila ele aparece em 3D). Os “?” são o que o exercício pede.</figcaption></figure>
+              <p><strong>a)</strong> Determine o ângulo central do setor correspondente ao francês.<br><strong>b)</strong> Determine o número de alunos que optaram por espanhol e o ângulo correspondente.</p>
+            </div>
+          </div>
+          <details open>
+            <summary>Resolução comentada</summary>
+            <div class="sol">
+              <div class="step"><i>a</i><div>Francês: 18 de 180 = 18 ÷ 180 = 0,1 (10%). Ângulo = 0,1 × 360° = 36°.<br>Regra de três: <span class="mono">180 alunos — 360° e 18 alunos — x → x = 36°</span> (cada aluno vale 2°).
+                <div class="ans">36°.</div></div></div>
+              <div class="step"><i>b</i><div>Primeiro, quantos escolheram inglês: 252° ÷ 360° = 0,7 → 0,7 × 180 = 126 alunos (ou 252° ÷ 2° por aluno = 126).<br>Espanhol = 180 − 126 − 18 = 36 alunos. Ângulo = 36 × 2° = 72°.
+                <div class="ans">36 alunos e 72°.</div></div></div>
+              <p><strong>Conferência:</strong> 252° + 36° + 72° = 360° ✓ e 126 + 18 + 36 = 180 ✓.</p>
+            </div>
+          </details>
+        </div>
+
+        <h4 class="t"><span class="k">3.3</span>Gráfico de barras — comparar categorias</h4>
+        <div class="prose">
+          <p>Cada categoria recebe uma <strong>barra horizontal cujo comprimento é proporcional ao valor</strong>. É ótimo para comparar grupos (especialmente com nomes longos) e, com duas barras por categoria, para comparar dois momentos.</p>
+        </div>
+        <div class="ex" style="margin-top:14px">
+          <div class="ex-head">
+            <div class="ex-id">EF4 · pág. 9</div>
+            <div class="ex-q">
+              <p>O gráfico mostra a evolução das vendas de 4 grandes jornais entre setembro de 2006 e setembro de 2007.</p>
+              <figure><div class="fig"><svg class="chart" viewBox="0 0 640 348" role="img" aria-labelledby="bj-t bj-d">
+<title id="bj-t">Vendas de 4 jornais, set/2006 e set/2007 (milhares de unidades)</title>
+<desc id="bj-d">Super: 157 e 291. Status: 235 e 243. Mundo: 282 e 291. Papel: 319 e 307.</desc>
+<rect class="bar c1" x="84" y="14" width="14" height="14" rx="3"/><text class="leg" x="104" y="26">Set/2006</text>
+<rect class="bar c2" x="196" y="14" width="14" height="14" rx="3"/><text class="leg" x="216" y="26">Set/2007</text>
+<line class="grid" x1="84" x2="84" y1="48" y2="292"/>
+<text class="tick" x="84" y="310" text-anchor="middle">0</text>
+<line class="grid" x1="203" x2="203" y1="48" y2="292"/>
+<text class="tick" x="203" y="310" text-anchor="middle">100</text>
+<line class="grid" x1="322" x2="322" y1="48" y2="292"/>
+<text class="tick" x="322" y="310" text-anchor="middle">200</text>
+<line class="grid" x1="441" x2="441" y1="48" y2="292"/>
+<text class="tick" x="441" y="310" text-anchor="middle">300</text>
+<line class="grid" x1="560" x2="560" y1="48" y2="292"/>
+<text class="tick" x="560" y="310" text-anchor="middle">400</text>
+<line class="axis" x1="84" x2="84" y1="48" y2="292"/>
+<text class="axt" x="322.0" y="332" text-anchor="middle">Vendas (em milhares de unidades)</text>
+<text class="cat" x="74" y="81" text-anchor="end">Super</text>
+<path class="bar c1" d="M84,58 H266.8 A4,4 0 0 1 270.8,62 V72 A4,4 0 0 1 266.8,76 H84 Z"><title>Super set/2006: 157 mil</title></path>
+<text class="vlabel" x="276.8" y="72">157</text>
+<path class="bar c2" d="M84,78 H426.3 A4,4 0 0 1 430.3,82 V92 A4,4 0 0 1 426.3,96 H84 Z"><title>Super set/2007: 291 mil</title></path>
+<text class="vlabel" x="436.3" y="92">291</text>
+<text class="cat" x="74" y="139" text-anchor="end">Status</text>
+<path class="bar c1" d="M84,116 H359.7 A4,4 0 0 1 363.7,120 V130 A4,4 0 0 1 359.7,134 H84 Z"><title>Status set/2006: 235 mil</title></path>
+<text class="vlabel" x="369.7" y="130">235</text>
+<path class="bar c2" d="M84,136 H369.2 A4,4 0 0 1 373.2,140 V150 A4,4 0 0 1 369.2,154 H84 Z"><title>Status set/2007: 243 mil</title></path>
+<text class="vlabel" x="379.2" y="150">243</text>
+<text class="cat" x="74" y="197" text-anchor="end">Mundo</text>
+<path class="bar c1" d="M84,174 H415.6 A4,4 0 0 1 419.6,178 V188 A4,4 0 0 1 415.6,192 H84 Z"><title>Mundo set/2006: 282 mil</title></path>
+<text class="vlabel" x="425.6" y="188">282</text>
+<path class="bar c2" d="M84,194 H426.3 A4,4 0 0 1 430.3,198 V208 A4,4 0 0 1 426.3,212 H84 Z"><title>Mundo set/2007: 291 mil</title></path>
+<text class="vlabel" x="436.3" y="208">291</text>
+<text class="cat" x="74" y="255" text-anchor="end">Papel</text>
+<path class="bar c1" d="M84,232 H459.6 A4,4 0 0 1 463.6,236 V246 A4,4 0 0 1 459.6,250 H84 Z"><title>Papel set/2006: 319 mil</title></path>
+<text class="vlabel" x="469.6" y="246">319</text>
+<path class="bar c2" d="M84,252 H445.3 A4,4 0 0 1 449.3,256 V266 A4,4 0 0 1 445.3,270 H84 Z"><title>Papel set/2007: 307 mil</title></path>
+<text class="vlabel" x="455.3" y="266">307</text>
+</svg></div><figcaption>Reconstrução do gráfico da apostila com os valores impressos nas barras.</figcaption></figure>
+              <p><strong>a)</strong> Qual foi o jornal que mais vendeu nos dois anos citados?<br><strong>b)</strong> Quanto, em porcentagem, aumentaram as vendas do jornal Super no período?<br><strong>c)</strong> Quanto, em porcentagem, diminuíram as vendas do jornal Papel no período?</p>
+            </div>
+          </div>
+          <details open>
+            <summary>Resolução comentada</summary>
+            <div class="sol">
+              <div class="box note"><div class="lbl">Leitura da foto e unidade</div><ul>
+                <li>O rótulo da barra de 2006 do jornal <strong>Papel</strong> está pequeno na foto. A leitura mais provável é <strong>319</strong> — confirmada medindo o comprimento da barra em relação às outras. Se na sua apostila estiver 315, o item c muda (veja abaixo).</li>
+                <li>O enunciado fala em “milhões de unidades”, mas o eixo do gráfico diz “milhares de unidades”. As porcentagens não dependem da unidade, então as respostas não mudam.</li>
+              </ul></div>
+              <div class="step"><i>a</i><div>Em 2006, o maior é Papel (319); em 2007, também Papel (307, contra 291 de Super e de Mundo). Somando os dois anos: Papel 626; Mundo 573; Status 478; Super 448.
+                <div class="ans">Papel.</div></div></div>
+              <div class="step"><i>b</i><div>Super: de 157 para 291. <span class="mono">(291 − 157) ÷ 157 = 134 ÷ 157 ≈ 0,8535</span>
+                <div class="ans">≈ 85,4% de aumento.</div></div></div>
+              <div class="step"><i>c</i><div>Papel: de 319 para 307. <span class="mono">(319 − 307) ÷ 319 = 12 ÷ 319 ≈ 0,0376</span>
+                <div class="ans">≈ 3,8% de queda (3,76%).</div>
+                <p class="src" style="margin-top:6px">Se o valor de 2006 for 315: 8 ÷ 315 ≈ 2,5%.</p></div></div>
+              <div class="box warn"><div class="lbl">A pegadinha dos itens b e c</div><p>Na variação percentual, divide-se <strong>sempre pelo valor inicial</strong> (o de 2006), tanto no aumento quanto na queda. Dividir por 307 (o valor final) daria 3,9% — resposta errada que costuma estar entre as alternativas.</p></div>
+            </div>
+          </details>
+        </div>
+
+        <h4 class="t"><span class="k">3.4</span>Gráfico de colunas — o mesmo que barras, na vertical</h4>
+        <div class="prose">
+          <p>As colunas são barras em pé: <strong>a altura é proporcional à frequência</strong>. No EF5, o eixo horizontal traz os salários e o vertical, o número de funcionários que recebe cada salário.</p>
+        </div>
+        <div class="ex" style="margin-top:14px">
+          <div class="ex-head">
+            <div class="ex-id">EF5 · pág. 9</div>
+            <div class="ex-q">
+              <p>Foram pesquisados os salários dos funcionários de uma empresa, cujo <strong>salário médio é R$ 1.077,00</strong>. O levantamento está no gráfico (salário em reais no eixo das abscissas).</p>
+              <figure><div class="fig"><svg class="chart" viewBox="0 0 640 320" role="img" aria-labelledby="sc-t sc-d">
+<title id="sc-t">Número de funcionários por salário (R$)</title>
+<desc id="sc-d">500: 20; 800: 12; 1000: 13; 1500: 6; 2000: 5; 3000: 3; 4000: 1. Salário médio informado: R$ 1.077,00.</desc>
+<line class="grid" x1="56" x2="620" y1="250" y2="250"/>
+<text class="tick" x="46" y="254" text-anchor="end">0</text>
+<line class="grid" x1="56" x2="620" y1="196" y2="196"/>
+<text class="tick" x="46" y="200" text-anchor="end">5</text>
+<line class="grid" x1="56" x2="620" y1="142" y2="142"/>
+<text class="tick" x="46" y="146" text-anchor="end">10</text>
+<line class="grid" x1="56" x2="620" y1="88" y2="88"/>
+<text class="tick" x="46" y="92" text-anchor="end">15</text>
+<line class="grid" x1="56" x2="620" y1="34" y2="34"/>
+<text class="tick" x="46" y="38" text-anchor="end">20</text>
+<line class="axis" x1="56" x2="620" y1="250" y2="250"/>
+<path class="bar c1" d="M84.3,250 V38 A4,4 0 0 1 88.3,34 H104.3 A4,4 0 0 1 108.3,38 V250 Z"><title>R$ 500: 20 funcionários</title></path>
+<text class="vlabel" x="96.3" y="27" text-anchor="middle">20</text>
+<text class="tick" x="96.3" y="270" text-anchor="middle">500</text>
+<path class="bar c1" d="M164.9,250 V124.4 A4,4 0 0 1 168.9,120.4 H184.9 A4,4 0 0 1 188.9,124.4 V250 Z"><title>R$ 800: 12 funcionários</title></path>
+<text class="vlabel" x="176.9" y="113.4" text-anchor="middle">12</text>
+<text class="tick" x="176.9" y="270" text-anchor="middle">800</text>
+<path class="bar c1" d="M245.4,250 V113.6 A4,4 0 0 1 249.4,109.6 H265.4 A4,4 0 0 1 269.4,113.6 V250 Z"><title>R$ 1000: 13 funcionários</title></path>
+<text class="vlabel" x="257.4" y="102.6" text-anchor="middle">13</text>
+<text class="tick" x="257.4" y="270" text-anchor="middle">1000</text>
+<path class="bar c1" d="M326,250 V189.2 A4,4 0 0 1 330,185.2 H346 A4,4 0 0 1 350,189.2 V250 Z"><title>R$ 1500: 6 funcionários</title></path>
+<text class="vlabel" x="338" y="178.2" text-anchor="middle">6</text>
+<text class="tick" x="338" y="270" text-anchor="middle">1500</text>
+<path class="bar c1" d="M406.6,250 V200 A4,4 0 0 1 410.6,196 H426.6 A4,4 0 0 1 430.6,200 V250 Z"><title>R$ 2000: 5 funcionários</title></path>
+<text class="vlabel" x="418.6" y="189" text-anchor="middle">5</text>
+<text class="tick" x="418.6" y="270" text-anchor="middle">2000</text>
+<path class="bar c1" d="M487.1,250 V221.6 A4,4 0 0 1 491.1,217.6 H507.1 A4,4 0 0 1 511.1,221.6 V250 Z"><title>R$ 3000: 3 funcionários</title></path>
+<text class="vlabel" x="499.1" y="210.6" text-anchor="middle">3</text>
+<text class="tick" x="499.1" y="270" text-anchor="middle">3000</text>
+<path class="bar c1" d="M567.7,250 V243.2 A4,4 0 0 1 571.7,239.2 H587.7 A4,4 0 0 1 591.7,243.2 V250 Z"><title>R$ 4000: 1 funcionários</title></path>
+<text class="vlabel" x="579.7" y="232.2" text-anchor="middle">1</text>
+<text class="tick" x="579.7" y="270" text-anchor="middle">4000</text>
+<line class="ref" x1="297.7" x2="297.7" y1="26" y2="250"/>
+<text class="reflabel" x="303.7" y="36">média ≈ R$ 1.077</text>
+<text class="axt" x="338.0" y="312" text-anchor="middle">Salário (em reais)</text>
+<text class="axt" transform="translate(14 142.0) rotate(-90)" text-anchor="middle">Nº de funcionários</text>
+</svg></div><figcaption>Reconstrução do gráfico. A linha tracejada marca onde fica o salário médio informado no enunciado.</figcaption></figure>
+              <p><strong>a)</strong> Determine o número de funcionários da empresa.<br><strong>b)</strong> Determine o número de funcionários que recebem menos do que o salário médio.<br><strong>c)</strong> Determine a porcentagem de funcionários que recebem mais do que R$ 1.800,00.</p>
+            </div>
+          </div>
+          <details open>
+            <summary>Resolução comentada</summary>
+            <div class="sol">
+              <div class="step"><i>a</i><div>Some todas as colunas: 20 + 12 + 13 + 6 + 5 + 3 + 1 = 60.
+                <div class="ans">60 funcionários.</div></div></div>
+              <div class="step"><i>b</i><div>Menos que R$ 1.077: só os salários de 500, 800 e 1000 → 20 + 12 + 13 = 45.
+                <div class="ans">45 funcionários.</div></div></div>
+              <div class="step"><i>c</i><div>Mais que R$ 1.800: salários de 2000, 3000 e 4000 → 5 + 3 + 1 = 9. Porcentagem: 9 ÷ 60 = 0,15.
+                <div class="ans">15%.</div></div></div>
+              <div class="box comp"><div class="lbl">Complemento para melhor compreensão</div><ul>
+                <li><strong>Dá para conferir a leitura do gráfico com a média do enunciado.</strong> Multiplicando cada salário pelo número de pessoas e dividindo pelo total: (500·20 + 800·12 + 1000·13 + 1500·6 + 2000·5 + 3000·3 + 4000·1) ÷ 60 = 64 600 ÷ 60 ≈ R$ 1.076,67 ≈ R$ 1.077 ✓. (Essa conta — a média ponderada — é o próximo passo natural da Estatística.)</li>
+                <li><strong>Um fato que o gráfico revela:</strong> 45 de 60 funcionários (75%) ganham <em>abaixo</em> da média. Poucos salários altos “puxam” a média para cima — por isso “salário médio” nem sempre descreve bem o funcionário típico.</li>
+              </ul></div>
+            </div>
+          </details>
+        </div>
+
+        <h4 class="t"><span class="k">3.5</span>Qual gráfico usar?</h4>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Gráfico</th><th>Melhor para</th><th>Como ler</th><th>Na apostila</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Linhas</strong></td><td style="white-space:normal">evolução ao longo do tempo</td><td style="white-space:normal">inclinação = rapidez da variação</td><td>EF1</td></tr>
+              <tr><td><strong>Setores</strong></td><td style="white-space:normal">partes de um todo (soma 100%)</td><td style="white-space:normal">ângulo = f<sub>r</sub> × 360°</td><td>EF2, EF3</td></tr>
+              <tr><td><strong>Barras</strong></td><td style="white-space:normal">comparar categorias (horizontal)</td><td style="white-space:normal">comprimento ∝ valor</td><td>EF4</td></tr>
+              <tr><td><strong>Colunas</strong></td><td style="white-space:normal">comparar categorias ou valores (vertical)</td><td style="white-space:normal">altura ∝ frequência</td><td>EF5</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="box comp" style="margin-top:14px">
+          <div class="lbl">Complemento para melhor compreensão — e os dados em classes?</div>
+          <p>Para dados agrupados em classes (como no ER2, T2 e T3), o gráfico usado é o <strong>histograma</strong>: colunas encostadas, cada uma ocupando exatamente a largura da sua classe. Veja o T3 desenhado assim — as colunas destacadas são as notas ≥ 4, que somam os 65% do item b.</p>
+          <figure><div class="fig"><svg class="chart" viewBox="0 0 640 300" role="img" aria-labelledby="hi-t hi-d">
+<title id="hi-t">Histograma das notas de redação (T3)</title>
+<desc id="hi-d">Classes de amplitude 1,5 a partir de 1,0 com frequências 3, 4, 6, 3, 2, 2. As classes a partir de 4,0 estão destacadas: somam 13 alunos.</desc>
+<line class="grid" x1="56" x2="610" y1="240" y2="240"/>
+<text class="tick" x="46" y="244" text-anchor="end">0</text>
+<line class="grid" x1="56" x2="610" y1="180" y2="180"/>
+<text class="tick" x="46" y="184" text-anchor="end">2</text>
+<line class="grid" x1="56" x2="610" y1="120" y2="120"/>
+<text class="tick" x="46" y="124" text-anchor="end">4</text>
+<line class="grid" x1="56" x2="610" y1="60" y2="60"/>
+<text class="tick" x="46" y="64" text-anchor="end">6</text>
+<line class="axis" x1="56" x2="610" y1="240" y2="240"/>
+<path class="bar nmark" d="M57,240 V154 A4,4 0 0 1 61,150 H143.3 A4,4 0 0 1 147.3,154 V240 Z"><title>1,0 ⊢ 2,5: 3 alunos</title></path>
+<text class="vlabel" x="102.2" y="143" text-anchor="middle">3</text>
+<path class="bar nmark" d="M149.3,240 V124 A4,4 0 0 1 153.3,120 H235.7 A4,4 0 0 1 239.7,124 V240 Z"><title>2,5 ⊢ 4,0: 4 alunos</title></path>
+<text class="vlabel" x="194.5" y="113" text-anchor="middle">4</text>
+<path class="bar c1" d="M241.7,240 V64 A4,4 0 0 1 245.7,60 H328 A4,4 0 0 1 332,64 V240 Z"><title>4,0 ⊢ 5,5: 6 alunos</title></path>
+<text class="vlabel" x="286.8" y="53" text-anchor="middle">6</text>
+<path class="bar c1" d="M334,240 V154 A4,4 0 0 1 338,150 H420.3 A4,4 0 0 1 424.3,154 V240 Z"><title>5,5 ⊢ 7,0: 3 alunos</title></path>
+<text class="vlabel" x="379.2" y="143" text-anchor="middle">3</text>
+<path class="bar c1" d="M426.3,240 V184 A4,4 0 0 1 430.3,180 H512.7 A4,4 0 0 1 516.7,184 V240 Z"><title>7,0 ⊢ 8,5: 2 alunos</title></path>
+<text class="vlabel" x="471.5" y="173" text-anchor="middle">2</text>
+<path class="bar c1" d="M518.7,240 V184 A4,4 0 0 1 522.7,180 H605 A4,4 0 0 1 609,184 V240 Z"><title>8,5 ⊢ 10,0: 2 alunos</title></path>
+<text class="vlabel" x="563.8" y="173" text-anchor="middle">2</text>
+<text class="tick" x="56" y="260" text-anchor="middle">1,0</text>
+<text class="tick" x="148.3" y="260" text-anchor="middle">2,5</text>
+<text class="tick" x="240.7" y="260" text-anchor="middle">4,0</text>
+<text class="tick" x="333" y="260" text-anchor="middle">5,5</text>
+<text class="tick" x="425.3" y="260" text-anchor="middle">7,0</text>
+<text class="tick" x="517.7" y="260" text-anchor="middle">8,5</text>
+<text class="tick" x="610" y="260" text-anchor="middle">10,0</text>
+<text class="axt" x="333.0" y="294" text-anchor="middle">Nota</text>
+<rect class="bar c1" x="460" y="6" width="14" height="14" rx="3"/><text class="leg" x="480" y="18">nota ≥ 4 (13 alunos)</text>
+</svg></div></figure>
+          <p class="src">Este tipo de gráfico não aparece nas páginas 1–9; talvez venha nas próximas páginas da apostila.</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- 04 EXEMPLOS E ANALOGIAS -->
+    <section class="sec" id="exemplos">
+      <div class="sec-head"><span class="num">04</span><h2>Exemplos e analogias</h2></div>
+      <div class="g2">
+        <div class="card">
+          <h5>A panela de sopa — população, amostra e aleatoriedade</h5>
+          <p>Para saber se a sopa está salgada, ninguém bebe a panela inteira: mexe bem e prova uma colher. A <strong>panela</strong> é a população; a <strong>colher</strong> é a amostra; <strong>mexer</strong> é sortear. Sem mexer, a colher da superfície pode enganar — é a amostra tendenciosa.</p>
+        </div>
+        <div class="card">
+          <h5>Escada × rampa — discreta × contínua</h5>
+          <p>Numa <strong>escada</strong> você só pisa nos degraus: 1º, 2º, 3º… (discreta — número de alunos, de filhos, de gols). Numa <strong>rampa</strong> você pode parar em qualquer ponto (contínua — altura, tempo, massa).</p>
+        </div>
+        <div class="card">
+          <h5>Aproveitamento no futebol — por que existe a f<sub>r</sub></h5>
+          <p>Dois atacantes fizeram 5 gols cada. Um chutou 20 vezes (5 ÷ 20 = 25% de aproveitamento); o outro, 100 vezes (5%). A frequência absoluta empata; a relativa mostra quem foi mais eficiente.</p>
+        </div>
+        <div class="card">
+          <h5>Gavetas de um armário — classes a ⊢ b</h5>
+          <p>Cada valor vai para exatamente uma gaveta. A “borda de cima” de uma gaveta já pertence à gaveta seguinte: o R$ 660,00 do T2 não cabe em 460 ⊢ 660, vai para 660 ⊢ 860.</p>
+        </div>
+        <div class="card">
+          <h5>A pizza de 8 pedaços — setores</h5>
+          <p>Pizza inteira = 360° = 100%. Cortada em 8 pedaços iguais, cada pedaço tem 360° ÷ 8 = 45°, ou seja, 12,5%. Quem come 3 pedaços comeu 37,5% da pizza (135°).</p>
+        </div>
+        <div class="card">
+          <h5>A trilha na montanha — gráfico de linhas</h5>
+          <p>Trecho íngreme = variação acentuada; trecho quase plano = variação pequena. No EF1 do Cap. 3, a década de 1970 é o trecho mais “plano” da trilha.</p>
+        </div>
+      </div>
+
+      <h4 class="t"><span class="k">Ex.</span>Um exemplo completo, fora da apostila: pesquisa de uma loja virtual</h4>
+      <div class="prose">
+        <p>Uma loja on-line quer conhecer seus clientes. <strong>População:</strong> todos os clientes que compraram no último ano. <strong>Amostra:</strong> 300 clientes sorteados que responderam a um formulário. Veja como cada pergunta se classifica:</p>
+      </div>
+      <div class="tbl-wrap" style="margin-top:10px">
+        <table>
+          <thead><tr><th>Variável</th><th>Exemplo de resposta</th><th>Classificação</th></tr></thead>
+          <tbody>
+            <tr><td>Forma de pagamento</td><td>Pix, cartão, boleto</td><td><span class="qual">qualitativa</span></td></tr>
+            <tr><td>Estado onde mora</td><td>SP, MG, RJ</td><td><span class="qual">qualitativa</span></td></tr>
+            <tr><td>CEP</td><td>04567-000</td><td><span class="qual">qualitativa</span> (número usado como rótulo)</td></tr>
+            <tr><td>Número de pedidos no ano</td><td>0, 1, 2, 3…</td><td><span class="quant">quantitativa discreta</span></td></tr>
+            <tr><td>Tempo até a entrega (em horas)</td><td>38,5 h</td><td><span class="quant">quantitativa contínua</span></td></tr>
+            <tr><td>Valor gasto no ano (R$)</td><td>1 284,90</td><td><span class="quant">quantitativa contínua</span> (convenção da apostila)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="box comp" style="margin-top:14px">
+        <div class="lbl">Complemento para melhor compreensão — porcentagens não se “desfazem”</div>
+        <p>Um produto de R$ 100 que sobe 25% passa a R$ 125. Se depois cair 25%, ele cai 25% <em>de 125</em> (R$ 31,25) e vai para R$ 93,75 — não volta a R$ 100. É a mesma lição do EF4: a porcentagem é sempre calculada sobre o valor de partida daquele momento.</p>
+      </div>
+    </section>
+
+    <!-- 05 ESQUEMAS -->
+    <section class="sec" id="esquemas">
+      <div class="sec-head"><span class="num">05</span><h2>Esquemas e desenhos</h2></div>
+
+      <h4 class="t"><span class="k">E1</span>Árvore de classificação das variáveis</h4>
+      <div class="tree">
+        <ul>
+          <li><span class="tn">Variável estatística</span>
+            <ul>
+              <li><span class="tn q1">Qualitativa — não numérica</span><span class="ex-t">sexo · etnia · estado civil · esporte preferido · tipo de filme</span>
+                <ul>
+                  <li><span class="tn">nominal — sem ordem</span><span class="ex-t">estado civil, cor dos olhos (complemento)</span></li>
+                  <li><span class="tn">ordinal — com ordem</span><span class="ex-t">escolaridade F → M → S (complemento)</span></li>
+                </ul>
+              </li>
+              <li><span class="tn q2">Quantitativa — numérica</span><span class="ex-t">idade · altura · salário · nota</span>
+                <ul>
+                  <li><span class="tn q2">Discreta — contagem, “só inteiros” (ℤ)</span><span class="ex-t">nº de alunos por sala · nº de ações · idade em anos completos</span></li>
+                  <li><span class="tn q2">Contínua — medida, qualquer valor do intervalo</span><span class="ex-t">altura · salário · horas na internet · idade em anos, meses e dias</span></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <h4 class="t"><span class="k">E2</span>O mapa das conversões</h4>
+<pre class="ascii">              ÷ n                  × 100
+     f  ─────────────►  fr  ─────────────►  %
+     f  ◄─────────────  fr  ◄─────────────  %
+              × n                  ÷ 100
+
+     ângulo do setor = fr × 360°        1% = 3,6°
+     Σf = n                              Σfr = 1 (100%)</pre>
+
+      <h4 class="t"><span class="k">E3</span>Anatomia de uma tabela em classes</h4>
+<pre class="ascii">  Classe          f     fr      %
+  260 ⊢ 460       7    0,35    35%   ← 260 entra · 460 não entra
+  460 ⊢ 660       4    0,20    20%
+  660 ⊢ 860       4    0,20    20%
+  860 ⊢ 1060      3    0,15    15%
+  1060 ⊢ 1260     2    0,10    10%
+  ────────────────────────────────
+  Total          20    1,00   100%   ← confira: Σf = n e Σfr = 1
+    │             │      │
+    │             │      └─ f ÷ n
+    │             └─ contagem (risquinhos)
+    └─ amplitude = 460 − 260 = 200 · ponto médio = (260 + 460) ÷ 2 = 360</pre>
+
+      <h4 class="t"><span class="k">E4</span>Variação percentual sem erro</h4>
+<pre class="ascii">   inicial 11 ─────────────────────► final 34
+
+   variação absoluta   = 34 − 11 = 23 (milhões)
+   variação percentual = 23 ÷ 11 = 2,0909… = 209,09%   ✓  divide pelo INICIAL
+
+   34 ÷ 11 = 3,0909… = 309,09%   ✗  isso é "34 equivale a 309% de 11"
+                                     o aumento é 309% − 100% = 209%</pre>
+
+      <h4 class="t"><span class="k">E5</span>Setores por regra de três</h4>
+<pre class="ascii">   100%  ─────  360°                180 alunos  ─────  360°
+    33%  ─────   x                   18 alunos  ─────   x
+
+   x = 33 × 3,6° = 118,8°            x = 18 × 2° = 36°
+   (EF2 · 21 a 30 anos)              (EF3 · francês)</pre>
+    </section>
+
+    <!-- 06 PEGADINHAS -->
+    <section class="sec" id="pegadinhas">
+      <div class="sec-head"><span class="num">06</span><h2>Pontos de atenção e pegadinhas</h2></div>
+
+      <h5 class="s">Capítulo 1 — classificar e amostrar</h5>
+      <div class="g2">
+        <div class="box warn"><div class="lbl">Número que é rótulo</div><p>CEP, número da camisa, telefone e RG têm algarismos, mas são <span class="qual">qualitativos</span>. Teste: fazer a média disso tem sentido? Se não tem, não é quantitativa.</p></div>
+        <div class="box warn"><div class="lbl">Idade tem duas respostas</div><p>Em anos completos → discreta. Em anos, meses e dias → contínua. Leia <em>como</em> a variável foi registrada antes de classificar.</p></div>
+        <div class="box warn"><div class="lbl">Amostra grande ≠ amostra boa</div><p>Uma enquete com milhares de votos, feita só entre os seguidores de um perfil, continua tendenciosa. O que torna a amostra confiável é ser aleatória e representar todos os grupos, não só o tamanho.</p></div>
+        <div class="box warn"><div class="lbl">Salário e nota</div><p>Na convenção da apostila, salário é contínuo. Nota é o caso polêmico: pela definição da apostila tende a ser contínua (admite decimais); por um critério mais rigoroso, discreta. Justifique por escrito.</p></div>
+      </div>
+
+      <h5 class="s">Capítulo 2 — tabelas e classes</h5>
+      <div class="g2">
+        <div class="box warn"><div class="lbl">Rol que “perde” valores</div><p>O rol tem exatamente os mesmos valores dos dados brutos, repetições incluídas (o 1,60 aparece 4 vezes). Conte no fim: n entrou, n saiu.</p></div>
+        <div class="box warn"><div class="lbl">Total que não fecha</div><p>Σf tem de ser igual a n e Σf<sub>r</sub> tem de dar 1. Foi exatamente o que escapou no total da sua tabela de estado civil (20 em vez de 25).</p></div>
+        <div class="box warn"><div class="lbl">Divisor errado</div><p>f<sub>r</sub> = f ÷ n, em que n é o total <strong>da pesquisa</strong> (20, 25, 40, 200…) — nunca o número de categorias. Em cada exercício, circule o n antes de começar.</p></div>
+        <div class="box warn"><div class="lbl">O limite de cima de a ⊢ b</div><p>O valor b vai para a classe seguinte: 660,00 pertence a 660 ⊢ 860 (T2). E o valor a entra: 260,00 pertence a 260 ⊢ 460.</p></div>
+        <div class="box warn"><div class="lbl">Palavras que viram símbolos</div><p>“menos de” → &lt; · “até / no máximo” → ≤ · “mais de” → &gt; · “pelo menos / no mínimo” → ≥. Um símbolo trocado muda a classe que entra na conta.</p></div>
+        <div class="box warn"><div class="lbl">Duas amplitudes diferentes</div><p>No ER2, a amplitude dos dados é 1259 − 260 = 999; a do intervalo escolhido para as classes, [260; 1260[, é 1000. E a amplitude <em>de cada classe</em> (b − a) é outra coisa: 200.</p></div>
+      </div>
+
+      <h5 class="s">Capítulo 3 — ler gráficos</h5>
+      <div class="g2">
+        <div class="box warn"><div class="lbl">Aumento de 309% ou de 209%?</div><p>Aumento percentual = (final − inicial) ÷ inicial. A razão final ÷ inicial (34 ÷ 11 ≈ 309%) diz quanto o final vale em relação ao inicial; o aumento é o que passa de 100%.</p></div>
+        <div class="box warn"><div class="lbl">Queda também divide pelo inicial</div><p>Jornal Papel: 12 ÷ 319 (valor de 2006), não 12 ÷ 307. O valor “de partida” é sempre o do momento mais antigo.</p></div>
+        <div class="box warn"><div class="lbl">Absoluto × percentual</div><p>“Menos acentuado” no gráfico de linhas fala da inclinação (variação absoluta). Se o enunciado pedir “menor variação percentual”, a resposta pode mudar.</p></div>
+        <div class="box warn"><div class="lbl">Eixo que não começa no zero</div><p>O gráfico dos idosos começa em 10: o crescimento parece maior do que é. Leia os números do eixo antes de confiar no desenho.</p></div>
+        <div class="box warn"><div class="lbl">Unidade do eixo</div><p>No EF4, o texto diz “milhões” e o eixo diz “milhares”. Em porcentagem não muda nada, mas numa pergunta de “quantas unidades”, a unidade decide a resposta.</p></div>
+        <div class="box warn"><div class="lbl">Setores que não fecham</div><p>A soma dos ângulos tem de dar 360° e a das porcentagens, 100%. Use isso para conferir — e para achar o setor que falta, como o espanhol no EF3.</p></div>
+      </div>
+
+      <div class="box sheet" style="margin-top:18px">
+        <div class="lbl">Conferência das suas anotações nas fotos</div>
+        <ul>
+          <li><strong>Cap. 1 (pág. 1):</strong> marcações de definição corretas; a nota “ℤ → inteiros” resume bem a definição da apostila para discreta.</li>
+          <li><strong>Cap. 2, EF1 (estado civil):</strong> contagens e porcentagens certas; total de f escrito como 20 — o correto é 25.</li>
+          <li><strong>Cap. 3, EF1 (idosos):</strong> a) 70~80 ✓ · b) 209,09% ✓ · c) 17,64% ≈ 17,65% (arredondamento).</li>
+          <li><strong>Cap. 3, EF2 (SPC):</strong> a associação que você anotou entre faixas e setores está coerente com a legenda.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 07 O QUE MAIS CAI -->
+    <section class="sec" id="prova">
+      <div class="sec-head"><span class="num">07</span><h2>O que mais cai em prova</h2></div>
+      <div class="prose">
+        <p>No ENEM, interpretação de gráficos e tabelas é presença constante em Matemática — e aparece também em Ciências da Natureza e Humanas. Nos vestibulares como FUVEST, Unicamp e Unesp, Estatística costuma vir combinada com porcentagem e, nos próximos capítulos, com média, moda e mediana; nas provas discursivas, pede-se para montar ou completar a tabela e mostrar a conta. Os formatos abaixo são os que estas páginas treinam:</p>
+      </div>
+      <div class="g2" style="margin-top:14px">
+        <div class="box exam"><div class="lbl">1 · Variação percentual lida em gráfico</div><p>“De quanto foi o aumento/queda entre X e Y?” → (final − inicial) ÷ inicial. Treinado em: EF1 b, c e EF4 b, c do Cap. 3.</p></div>
+        <div class="box exam"><div class="lbl">2 · Setores: % ↔ ângulo ↔ quantidade</div><p>Descobrir o ângulo, a porcentagem ou quantas pessoas há num setor. Treinado em: EF2 e EF3 do Cap. 3.</p></div>
+        <div class="box exam"><div class="lbl">3 · Tabela com lacunas</div><p>Completar f, f<sub>r</sub> e % usando o total e o caminho de volta (f = f<sub>r</sub> × n). Treinado em: T1.</p></div>
+        <div class="box exam"><div class="lbl">4 · Dados em classes</div><p>Contar em classes a ⊢ b sem errar os limites e responder “quantos % estão acima/abaixo de…”. Treinado em: ER2, T2 e T3.</p></div>
+        <div class="box exam"><div class="lbl">5 · Comparar grupos de tamanhos diferentes</div><p>Decidir qual grupo tem “mais” usando a frequência relativa, e não a absoluta. Treinado em: a discussão da pág. 3 (5 em 20 × 5 em 100).</p></div>
+        <div class="box exam"><div class="lbl">6 · Classificar variáveis e identificar população/amostra</div><p>Questão conceitual rápida, comum em provas escolares e em concursos. Treinado em: EF1 do Cap. 1.</p></div>
+      </div>
+
+      <h5 class="s">Checklist antes de marcar a resposta</h5>
+      <ul class="check">
+        <li>Li o título, os eixos e a unidade do gráfico (milhares? milhões? %?).</li>
+        <li>Circulei o total n da pesquisa e conferi Σf = n e Σf<sub>r</sub> = 1.</li>
+        <li>Identifiquei o valor inicial antes de calcular uma variação percentual.</li>
+        <li>Traduzi “pelo menos”, “mais de”, “até” em ≥, &gt;, ≤ e conferi os limites das classes.</li>
+        <li>Nos setores, conferi que tudo soma 360° (ou 100%).</li>
+      </ul>
+    </section>
+
+    <!-- 08 VÍDEOS -->
+    <section class="sec" id="videos">
+      <div class="sec-head"><span class="num">08</span><h2>Vídeos completos no YouTube</h2></div>
+      <div class="box note">
+        <div class="lbl">Como estes links foram escolhidos</div>
+        <p>Cada link abre direto no vídeo (não na busca nem no canal). Todos foram conferidos em 20/09/2026 por duas verificações independentes: existem e estão públicos. As descrições abaixo se baseiam no título e no canal de cada vídeo.</p>
+      </div>
+
+      <div class="vgroup">
+        <h3>Capítulo 1 — população, amostra e variáveis</h3>
+        <div class="vids">
+          <a class="vid" href="https://www.youtube.com/watch?v=DLOQvKvbBW8" target="_blank" rel="noopener noreferrer">
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            <span><span class="vt">Noções de Estatística: conceitos iniciais (14/21)</span><span class="vc">Equaciona com Paulo Pereira</span><span class="vw">Os conceitos de partida da Estatística — a base do Capítulo 1.</span><span class="go">Assistir no YouTube →</span></span>
+          </a>
+          <a class="vid" href="https://www.youtube.com/watch?v=fBQVdJRI7XI" target="_blank" rel="noopener noreferrer">
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            <span><span class="vt">Variáveis qualitativas e quantitativas — Introdução à Estatística</span><span class="vc">Prof. Murakami · Matemática Rapidola</span><span class="vw">Classificação das variáveis, o tópico 1.2 e 1.3 desta aula.</span><span class="go">Assistir no YouTube →</span></span>
+          </a>
+          <a class="vid" href="https://www.youtube.com/watch?v=iPRpgV-N4Q4" target="_blank" rel="noopener noreferrer">
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            <span><span class="vt">Estatística — População, Amostra, Rol e Amplitude</span><span class="vc">Stoodi</span><span class="vw">Faz a ponte entre o Capítulo 1 e o começo do Capítulo 2.</span><span class="go">Assistir no YouTube →</span></span>
+          </a>
+        </div>
+      </div>
+
+      <div class="vgroup">
+        <h3>Capítulo 2 — tabelas de frequência e classes</h3>
+        <div class="vids">
+          <a class="vid" href="https://www.youtube.com/watch?v=ipGDaWBRatc" target="_blank" rel="noopener noreferrer">
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            <span><span class="vt">Frequência absoluta e relativa — Introdução à Estatística #14</span><span class="vc">Prof. Murakami · Matemática Rapidola</span><span class="vw">f, f<sub>r</sub> e porcentagem: os tópicos 2.4 e 2.5.</span><span class="go">Assistir no YouTube →</span></span>
+          </a>
+          <a class="vid" href="https://www.youtube.com/watch?v=AZlEuUdFWNA" target="_blank" rel="noopener noreferrer">
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            <span><span class="vt">Distribuição de frequência com classes — Estatística</span><span class="vc">Prof. Murakami · Matemática Rapidola</span><span class="vw">Dados agrupados em intervalos, como no ER2, T2 e T3.</span><span class="go">Assistir no YouTube →</span></span>
+          </a>
+        </div>
+      </div>
+
+      <div class="vgroup">
+        <h3>Capítulo 3 — gráficos</h3>
+        <div class="vids">
+          <a class="vid" href="https://www.youtube.com/watch?v=9rSTsFQH9oE" target="_blank" rel="noopener noreferrer">
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            <span><span class="vt">Tipos de gráficos: colunas, barras, segmentos e setores</span><span class="vc">Professora Angela Matemática</span><span class="vw">Os quatro tipos do capítulo (“segmentos” é o gráfico de linhas).</span><span class="go">Assistir no YouTube →</span></span>
+          </a>
+          <a class="vid" href="https://www.youtube.com/watch?v=72raxPYXRCA" target="_blank" rel="noopener noreferrer">
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            <span><span class="vt">Gráfico de setores ou gráfico de pizza</span><span class="vc">Professora Angela Matemática</span><span class="vw">Ângulo central e porcentagem, como no EF2 e no EF3.</span><span class="go">Assistir no YouTube →</span></span>
+          </a>
+          <a class="vid" href="https://www.youtube.com/watch?v=X6Z-0bG16BQ" target="_blank" rel="noopener noreferrer">
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            <span><span class="vt">Interpretando gráficos estatísticos I — ENEM e Vestibulares</span><span class="vc">Kultivi</span><span class="vw">Leitura e interpretação de gráficos no estilo das provas.</span><span class="go">Assistir no YouTube →</span></span>
+          </a>
+        </div>
+      </div>
+
+      <div class="vgroup">
+        <h3>Revisão geral (aulas longas)</h3>
+        <div class="vids">
+          <a class="vid" href="https://www.youtube.com/watch?v=Iq1TputJKnE" target="_blank" rel="noopener noreferrer">
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            <span><span class="vt">Ferretto Prepara #17: Estatística (replay)</span><span class="vc">Professor Ferretto · ENEM e Vestibulares</span><span class="vw">Aula ao vivo de revisão de Estatística; pode avançar para temas dos próximos capítulos.</span><span class="go">Assistir no YouTube →</span></span>
+          </a>
+          <a class="vid" href="https://www.youtube.com/watch?v=7edSVbQlnQQ" target="_blank" rel="noopener noreferrer">
+            <span class="play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            <span><span class="vt">Estatística: revisão para o ENEM</span><span class="vc">Descomplica</span><span class="vw">Revisão voltada ao ENEM, boa para depois de terminar esta aula.</span><span class="go">Assistir no YouTube →</span></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 REVISÃO FINAL -->
+    <section class="sec" id="revisao">
+      <div class="sec-head"><span class="num">09</span><h2>Revisão final dos conceitos principais</h2></div>
+
+      <div class="g2">
+        <div class="card">
+          <h5>Capítulo 1</h5>
+          <p><strong>População</strong>: todos os elementos. <strong>Amostra</strong>: subconjunto estudado, aleatório e não tendencioso. <strong>Variável</strong>: característica estudada — <span class="qual">qualitativa</span> (não numérica) ou <span class="quant">quantitativa</span> (numérica), que pode ser <strong>discreta</strong> (contagem, inteiros) ou <strong>contínua</strong> (medida, qualquer valor do intervalo).</p>
+        </div>
+        <div class="card">
+          <h5>Capítulo 2</h5>
+          <p><strong>Dados brutos</strong> → <strong>rol</strong> (ordenado) → <strong>amplitude</strong> (maior − menor) → <strong>f</strong> (quantas vezes) → <strong>f<sub>r</sub> = f ÷ n</strong> (entre 0 e 1, ou em %). Sem repetições? Agrupe em <strong>classes a ⊢ b</strong> (inclui a, exclui b), com amplitude b − a e ponto médio (a + b) ÷ 2.</p>
+        </div>
+        <div class="card">
+          <h5>Capítulo 3</h5>
+          <p><strong>Linhas</strong>: evolução no tempo. <strong>Setores</strong>: partes de um todo, ângulo = f<sub>r</sub> × 360°. <strong>Barras e colunas</strong>: comparar categorias pelo comprimento ou pela altura. <strong>Variação %</strong> = (final − inicial) ÷ inicial.</p>
+        </div>
+        <div class="card">
+          <h5>Conferências que salvam pontos</h5>
+          <p>Σf = n · Σf<sub>r</sub> = 1 (100%) · ângulos somam 360° · o limite superior de a ⊢ b vai para a classe seguinte · sempre divida pelo valor inicial.</p>
+        </div>
+      </div>
+
+      <h5 class="s">Todas as fórmulas em um lugar</h5>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>O quê</th><th>Fórmula</th><th>Exemplo da apostila</th></tr></thead>
+          <tbody>
+            <tr><td>Amplitude total</td><td class="mono">maior − menor</td><td>1,70 − 1,50 = 0,20 m</td></tr>
+            <tr><td>Frequência relativa</td><td class="mono">f<sub>r</sub> = f ÷ n</td><td>4 ÷ 20 = 0,20 = 20%</td></tr>
+            <tr><td>Frequência absoluta (volta)</td><td class="mono">f = f<sub>r</sub> × n</td><td>0,21 × 200 = 42</td></tr>
+            <tr><td>Amplitude da classe</td><td class="mono">b − a</td><td>460 − 260 = 200</td></tr>
+            <tr><td>Ponto médio</td><td class="mono">(a + b) ÷ 2</td><td>(260 + 460) ÷ 2 = 360</td></tr>
+            <tr><td>Ângulo do setor</td><td class="mono">f<sub>r</sub> × 360°</td><td>0,33 × 360° = 118,8°</td></tr>
+            <tr><td>Variação percentual</td><td class="mono">(final − inicial) ÷ inicial</td><td>(34 − 11) ÷ 11 ≈ 209,09%</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h5 class="s">Autoteste rápido — clique na alternativa</h5>
+      <div class="quiz" id="quiz">
+        <div class="qz"><p>1. O número da camisa de um jogador é uma variável…</p><div class="opts"><button class="opt" type="button" data-ok="1">qualitativa</button><button class="opt" type="button">quantitativa discreta</button><button class="opt" type="button">quantitativa contínua</button></div><div class="fb" hidden>É um rótulo: somar ou tirar a média de números de camisa não tem significado.</div></div>
+        <div class="qz"><p>2. O número de irmãos de cada aluno é uma variável…</p><div class="opts"><button class="opt" type="button">qualitativa</button><button class="opt" type="button" data-ok="1">quantitativa discreta</button><button class="opt" type="button">quantitativa contínua</button></div><div class="fb" hidden>Vem de uma contagem: 0, 1, 2… Não existe “1,5 irmão”.</div></div>
+        <div class="qz"><p>3. O tempo de cada atleta numa corrida de 100 m é uma variável…</p><div class="opts"><button class="opt" type="button">qualitativa</button><button class="opt" type="button">quantitativa discreta</button><button class="opt" type="button" data-ok="1">quantitativa contínua</button></div><div class="fb" hidden>Vem de uma medição com cronômetro e admite qualquer valor do intervalo (10,4371… s).</div></div>
+        <div class="qz"><p>4. Numa pesquisa com 40 pessoas, 10 preferem vôlei. A frequência relativa do vôlei é…</p><div class="opts"><button class="opt" type="button">0,10</button><button class="opt" type="button" data-ok="1">0,25</button><button class="opt" type="button">0,40</button></div><div class="fb" hidden>f<sub>r</sub> = 10 ÷ 40 = 0,25 = 25%.</div></div>
+        <div class="qz"><p>5. Na classe 460 ⊢ 660, o valor 660…</p><div class="opts"><button class="opt" type="button">entra nessa classe</button><button class="opt" type="button" data-ok="1">não entra: vai para a classe seguinte</button></div><div class="fb" hidden>a ⊢ b inclui a e exclui b. O 660 pertence a 660 ⊢ 860, como no T2.</div></div>
+        <div class="qz"><p>6. O ponto médio da classe 860 ⊢ 1060 é…</p><div class="opts"><button class="opt" type="button">900</button><button class="opt" type="button" data-ok="1">960</button><button class="opt" type="button">1000</button></div><div class="fb" hidden>(860 + 1060) ÷ 2 = 1920 ÷ 2 = 960.</div></div>
+        <div class="qz"><p>7. Num gráfico de setores, uma categoria com 15% do total tem ângulo central de…</p><div class="opts"><button class="opt" type="button">15°</button><button class="opt" type="button" data-ok="1">54°</button><button class="opt" type="button">150°</button></div><div class="fb" hidden>15 × 3,6° = 54° (ou 0,15 × 360°).</div></div>
+        <div class="qz"><p>8. Um valor passou de 40 para 50. O aumento percentual foi de…</p><div class="opts"><button class="opt" type="button">10%</button><button class="opt" type="button">20%</button><button class="opt" type="button" data-ok="1">25%</button></div><div class="fb" hidden>(50 − 40) ÷ 40 = 10 ÷ 40 = 0,25 = 25%.</div></div>
+        <div class="qz"><p>9. E se o valor tivesse passado de 50 para 40, a queda percentual seria de…</p><div class="opts"><button class="opt" type="button" data-ok="1">20%</button><button class="opt" type="button">25%</button><button class="opt" type="button">10%</button></div><div class="fb" hidden>(50 − 40) ÷ 50 = 10 ÷ 50 = 0,20 = 20%. Mesma diferença, porcentagem diferente: o divisor é o valor inicial.</div></div>
+        <div class="qz"><p>10. A amplitude do conjunto {3,2; 7,5; 1,8; 9,0} é…</p><div class="opts"><button class="opt" type="button" data-ok="1">7,2</button><button class="opt" type="button">5,7</button><button class="opt" type="button">9,0</button></div><div class="fb" hidden>Maior − menor = 9,0 − 1,8 = 7,2. Os valores não precisam estar em ordem na pergunta; você é que ordena.</div></div>
+        <div class="score" id="score" aria-live="polite">Acertos: 0 de 10</div>
+      </div>
+
+      <footer class="foot">
+        <span>Base: apostila “Atividade de apoio — Ensino Médio”, Capítulos 1 a 3 (págs. 1–9). Conteúdo além das fotos está marcado como “Complemento para melhor compreensão”.</span>
+        <span>Todas as contas dos exercícios foram conferidas; as respostas da Tarefa Complementar batem com o gabarito da pág. 7.</span>
+      </footer>
+    </section>
+  </main>
+</div>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  if (!root.getAttribute('lang')) root.setAttribute('lang','pt-BR');
+
+  /* Tema: alterna entre claro e escuro (estado só em memória) */
+  var btnTema = document.getElementById('btnTema');
+  function temaAtual(){
+    var t = root.getAttribute('data-theme');
+    if (t === 'dark' || t === 'light') return t;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+  }
+  function rotuloTema(){ btnTema.textContent = temaAtual() === 'dark' ? 'Tema claro' : 'Tema escuro'; }
+  btnTema.addEventListener('click', function(){
+    root.setAttribute('data-theme', temaAtual() === 'dark' ? 'light' : 'dark');
+    rotuloTema();
+  });
+  rotuloTema();
+
+  /* Modo treino: fecha/abre todas as resoluções */
+  var btnTreino = document.getElementById('btnTreino');
+  var sols = Array.prototype.slice.call(document.querySelectorAll('.ex details'));
+  btnTreino.addEventListener('click', function(){
+    var ligar = btnTreino.getAttribute('aria-pressed') !== 'true';
+    btnTreino.setAttribute('aria-pressed', ligar ? 'true' : 'false');
+    btnTreino.textContent = ligar ? 'Mostrar resoluções' : 'Modo treino';
+    sols.forEach(function(d){ d.open = !ligar; });
+  });
+
+  /* Impressão: abre tudo antes de imprimir */
+  var estadoAntes = [];
+  window.addEventListener('beforeprint', function(){
+    estadoAntes = sols.map(function(d){ return d.open; });
+    sols.forEach(function(d){ d.open = true; });
+  });
+  window.addEventListener('afterprint', function(){
+    sols.forEach(function(d, i){ d.open = estadoAntes[i]; });
+  });
+
+  /* Barra de progresso + scrollspy */
+  var bar = document.getElementById('progress');
+  var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+  var alvos = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  var linkExp = document.querySelector('.toc a[href="#explicacao"]');
+  var subIds = ['cap1','cap2','cap2b','cap3'];
+  var agendado = false;
+  function atualizar(){
+    agendado = false;
+    var h = document.documentElement.scrollHeight - window.innerHeight;
+    var p = h > 0 ? Math.min(1, Math.max(0, window.scrollY / h)) : 0;
+    bar.style.transform = 'scaleX(' + p + ')';
+    var ativo = -1;
+    for (var i = 0; i < alvos.length; i++){
+      if (alvos[i] && alvos[i].getBoundingClientRect().top <= 140) ativo = i;
+    }
+    links.forEach(function(a, i){ a.classList.toggle('active', i === ativo); });
+    if (ativo >= 0 && linkExp){
+      var id = alvos[ativo].id;
+      if (subIds.indexOf(id) !== -1) linkExp.classList.add('active');
+    }
+  }
+  window.addEventListener('scroll', function(){ if (!agendado){ agendado = true; requestAnimationFrame(atualizar); } }, {passive:true});
+  window.addEventListener('resize', atualizar);
+  atualizar();
+
+  /* Autoteste */
+  var acertos = 0, total = document.querySelectorAll('.qz').length;
+  var placar = document.getElementById('score');
+  Array.prototype.forEach.call(document.querySelectorAll('.qz'), function(q){
+    var botoes = Array.prototype.slice.call(q.querySelectorAll('.opt'));
+    var fb = q.querySelector('.fb');
+    botoes.forEach(function(b){
+      b.addEventListener('click', function(){
+        if (q.getAttribute('data-feito')) return;
+        q.setAttribute('data-feito', '1');
+        var certo = b.hasAttribute('data-ok');
+        botoes.forEach(function(x){
+          if (x.hasAttribute('data-ok')) x.classList.add('right');
+          x.disabled = true;
+        });
+        if (!certo) b.classList.add('wrong'); else acertos++;
+        fb.hidden = false;
+        fb.insertAdjacentText('afterbegin', certo ? 'Certo! ' : 'Quase. ');
+        placar.textContent = 'Acertos: ' + acertos + ' de ' + total;
+      });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
